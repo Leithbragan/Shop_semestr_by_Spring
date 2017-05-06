@@ -3,6 +3,7 @@ package ru.kpfu.itis.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import ru.kpfu.itis.form.AddProductForm;
 import ru.kpfu.itis.service.ProductService;
 import ru.kpfu.itis.service.StocktakingService;
 import ru.kpfu.itis.service.WarehouseService;
+import ru.kpfu.itis.util.validators.ValidatorAddProductForm;
 
 @Controller
 @RequestMapping(value = "product")
@@ -22,6 +24,8 @@ public class ProductController {
     private WarehouseService warehouseService;
     @Autowired
     private StocktakingService stocktakingService;
+
+    private ValidatorAddProductForm validatorAddProductForm = new ValidatorAddProductForm();
 
     @RequestMapping(value = "/all")
     public String catalog(Model model) {
@@ -38,12 +42,19 @@ public class ProductController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add_warehouse_page(Model model){
         model.addAttribute("product_form", new AddProductForm());
-        return "add_product_page";
+        return "add_product";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add_product(@ModelAttribute("product_form") AddProductForm form){
-        productService.save(form);
-        return "redirect:/product/all/";
+    public String add_product(@ModelAttribute("product_form") AddProductForm form, BindingResult result){
+        validatorAddProductForm.validate(form, result);
+
+        if (result.hasErrors()) {
+            return "add_product";
+        } else {
+            productService.save(form);
+            return "redirect:/product/all/";
+        }
+
     }
 }

@@ -33,7 +33,7 @@ public class StocktakingController {
         model.addAttribute("stocktaking_form", new StocktakingForm());
         model.addAttribute("products", productService.getAll());
         model.addAttribute("warehouses", warehouseService.getAll());
-        return "add_stocktaking_page";
+        return "add_stocktaking";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -44,23 +44,6 @@ public class StocktakingController {
         addStocktakingForm.setProduct(product);
         addStocktakingForm.setWarehouse(warehouse);
         stocktakingService.save(addStocktakingForm);
-        return "redirect:/";
-
-
-    }@RequestMapping(value = "/quantity", method = RequestMethod.GET)
-    public String add_quantity(Model model){
-        model.addAttribute("quantity_form", new QuantityForm());
-        model.addAttribute("stocktaking", stocktakingService.getAll());
-        return "add_quantity";
-    }
-
-    @RequestMapping(value = "/quantity", method = RequestMethod.POST)
-    public String add_quantity(@ModelAttribute("quantity_form") QuantityForm form){
-        Stocktaking stocktaking = stocktakingService.getById(form.getStocktaking());
-        AddQuantityForm addQuantityForm = new AddQuantityForm();
-        addQuantityForm.setStocktaking(stocktaking);
-        addQuantityForm.setQuantity(form.getQuantity());
-        stocktakingService.putQuantity(addQuantityForm);
         return "redirect:/";
     }
 }

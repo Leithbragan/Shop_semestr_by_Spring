@@ -1,12 +1,8 @@
-package ru.kpfu.itis.util;
+package ru.kpfu.itis.util.validators;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.kpfu.itis.form.UserRegistrationForm;
-import ru.kpfu.itis.model.User;
-import ru.kpfu.itis.repository.UserRepository;
-
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -17,7 +13,6 @@ public class ValidatorForm implements Validator {
     private Pattern username = Pattern.compile("[A-Z, a-z, _, -]{3,15}");
     private Pattern password = Pattern.compile("[A-Z, a-z, 0-9]{6,20}");
     private Pattern email = Pattern.compile("[A-Z, a-z, 0-9, -, _]+@[a-z]+.[a-z]+");
-    private UserRepository userRepository;
 
 
     @Override

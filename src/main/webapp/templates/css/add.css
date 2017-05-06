@@ -65,3 +65,8 @@ body {
 .form h6 a:hover, .form h6 a:active, .form h6 a:focus {
     color: #00ff00;
 }
+
+.form .error {
+    font-family: "Roboto", sans-serif;
+    color: red;
+}

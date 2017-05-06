@@ -53,3 +53,8 @@ body {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
 }
+
+.form .error {
+    font-family: "Roboto", sans-serif;
+    color: red;
+}

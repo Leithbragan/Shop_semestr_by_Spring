@@ -13,14 +13,24 @@
         <h1>Добавление товара</h1>
         <sf:form method="post" modelAttribute="product_form" cssClass="login-form">
             <sf:input path="name" placeholder="Название" cssClass="form_component"/>
+            <div class="error">
+                <sf:errors path="name"/>
+            </div>
             <sf:textarea path="description" placeholder="Описание" cssClass="form_component"/>
+            <div class="error">
+                <sf:errors path="description"/>
+            </div>
             <sf:input path="price" placeholder="Цена" cssClass="form_component"/>
+            <div class="error">
+                <sf:errors path="price"/>
+            </div>
             <sf:select path="type" placeholder="Тип" cssClass="form_component">
                 <sf:option value="Еда">Еда</sf:option>
                 <sf:option value="Вода">Вода</sf:option>
             </sf:select>
             <button type="submit">Добавить</button>
             <h6><a href="/admin/main">Админка</a></h6>
+            <h6><a href="/product/all">Продукты</a></h6>
         </sf:form>
     </div>
 </div>

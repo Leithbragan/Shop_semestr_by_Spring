@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.kpfu.itis.form.UserRegistrationForm;
 import ru.kpfu.itis.service.UserService;
-import ru.kpfu.itis.util.ValidatorForm;
+import ru.kpfu.itis.util.validators.ValidatorForm;
 
 @Controller
 public class IndexController {

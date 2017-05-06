@@ -10,19 +10,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="header-body">
-    <h1>Админка</h1>
-</div>
+    <nav class="navbar navbar-inverse" role="navigation">
+       <div class="bt">
+           <a class="btn btn-success" href="/product/add">Выход из админки</a>
+       </div>
+    </nav>
 <div class="middle-body">
     <div class="button-panel">
-        <div class="col-md-4"><a class="href" href="/product/add">Добавление продукта</a></div>
-        <div class="col-md-4"><a class="href" href="/warehouse/add">Добавление склада</a></div>
-        <div class="col-md-4"><a class="href" href="/stocktaking/add">Добавление учетной записи</a></div>
-        <div class="col-md-4"><a class="href" href="/stocktaking/quantity">Добавление количества продуктоа</a></div>
-        <div class="col-md-4"><a class="href" href="/users/all">Список пользователей</a></div>
-        <div class="col-md-4"><a class="href" href="/product/all">Список продуктов</a></div>
-        <div class="col-md-4"><a class="href" href="/warehouse/all">Список складов</a></div>
-        <div class="col-md-4"><a class="href" href="/product/add">Список учетных записей</a></div>
+        <div class="col-md-4"><a class="btn btn-success" href="/product/add">Добавление продукта</a></div>
+        <div class="col-md-4"><a class="btn btn-success" href="/warehouse/add">Добавление склада</a></div>
+        <div class="col-md-4"><a class="btn btn-success" href="/stocktaking/add">Добавление учетной записи</a></div>
+        <div class="col-md-4"><a class="btn btn-success" href="/users/all">Список пользователей</a></div>
+        <div class="col-md-4"><a class="btn btn-success" href="/product/all">Список продуктов</a></div>
+        <div class="col-md-4"><a class="btn btn-success" href="/warehouse/all">Список складов</a></div>
     </div>
 </div>
 </div>

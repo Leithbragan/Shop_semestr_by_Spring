@@ -13,9 +13,16 @@
         <h1>Добавление склада</h1>
         <sf:form method="post" modelAttribute="warehouse_form" cssClass="login-form">
             <sf:input path="city" placeholder="Город" cssClass="form_component"/>
+            <div class="error">
+                <sf:errors path="city"/>
+            </div>
             <sf:input path="street" placeholder="Улица" cssClass="form_component"/>
+            <div class="error">
+                <sf:errors path="street"/>
+            </div>
             <button type="submit">Добавить</button>
             <h6><a href="/admin/main">Админка</a></h6>
+            <h6><a href="/warehouse/all">Склады</a></h6>
         </sf:form>
     </div>
 </div>
