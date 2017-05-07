@@ -16,7 +16,7 @@
             <a class="navbar-brand">Shop</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/catalog">Каталог</a></li>
+            <li><a href="/product/all">Каталог</a></li>
             <li><a href="#">Корзина</a></li>
             <li><a href="#">Заказы</a></li>
         </ul>

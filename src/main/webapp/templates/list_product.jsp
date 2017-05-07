@@ -14,7 +14,7 @@
 <body>
 <div class="collapse navbar-collapse"><a href="/admin/main" class="href">Админка</a>
     <a href="/admin/product/add" class="href">Добавить продукт</a></div>
-<h1>Каталог</h1>
+<h1>Продукты</h1>
 <table class="table table-bordered">
     <thead>
     <tr>

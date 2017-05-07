@@ -11,7 +11,7 @@
         <!--<security:intercept-url pattern="/warehouse/*" access="hasAnyRole('ROLE_ADMIN')"/>-->
         <!--<security:intercept-url pattern="/product/" access="hasAnyRole('ROLE_ADMIN')"/>-->
         <security:intercept-url pattern="/shop/product/*" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
-        <security:intercept-url pattern="/catalog" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN, ROLE_ANONIM')"/>
+        <security:intercept-url pattern="/catalo" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN, ROLE_ANONIM')"/>
         <security:form-login
                 login-page="/login"
                 login-processing-url="/login/process"

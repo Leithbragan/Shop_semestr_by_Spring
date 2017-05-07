@@ -18,7 +18,7 @@ import ru.kpfu.itis.util.validators.ValidatorAddProductForm;
 
 @Controller
 @RequestMapping(value = "product")
-public class ProductController {
+public class ProductUserController {
 
     @Autowired
     private ProductService productService;
@@ -27,9 +27,7 @@ public class ProductController {
     @Autowired
     private StocktakingService stocktakingService;
 
-    private ValidatorAddProductForm validatorAddProductForm = new ValidatorAddProductForm();
-
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all")
     public String catalog(Model model) {
         model.addAttribute("products", productService.getAll());
         return "catalog";
