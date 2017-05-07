@@ -28,8 +28,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(UserRegistrationForm form) {
         User user = UserRegistrationFormToUserTransformer.transform(form);
-        SendMail sendMail = new SendMail();
-//        sendMail.send(form.getEmail());
         userRepository.save(user);
     }
 
@@ -47,6 +45,11 @@ public class UserServiceImpl implements UserService {
     public void modifyUser(UserModifyForm form) {
         User user = UserModifyFormTransform.transform(form);
         userRepository.save(user);
+    }
+
+    @Override
+    public void delete(long id) {
+        userRepository.delete(id);
     }
 
 

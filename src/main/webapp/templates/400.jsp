@@ -18,5 +18,6 @@
             <a class="button" href="/">Go back to Homepage</a>
         </div>
     </div>
+</div>
 </body>
 </html>

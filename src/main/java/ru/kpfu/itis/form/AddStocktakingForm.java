@@ -10,10 +10,9 @@ import ru.kpfu.itis.service.impl.WarehouseServiceImpl;
 
 public class AddStocktakingForm {
 
-    private static ProductService productService = new ProductServiceImpl();
-    private static WarehouseService warehouseService = new WarehouseServiceImpl();
     private Product product;
     private Warehouse warehouse;
+    private int quantity;
 
     public Product getProduct() {
         return product;
@@ -29,5 +28,13 @@ public class AddStocktakingForm {
 
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

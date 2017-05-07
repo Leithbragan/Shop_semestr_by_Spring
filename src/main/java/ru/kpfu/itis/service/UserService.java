@@ -15,4 +15,5 @@ public interface UserService {
     void securedMethod();
     User getById(long id);
     void modifyUser(UserModifyForm form);
+    void delete(long id);
 }

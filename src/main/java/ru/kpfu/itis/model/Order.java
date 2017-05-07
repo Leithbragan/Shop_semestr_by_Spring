@@ -1,6 +1,6 @@
 package ru.kpfu.itis.model;
 
-import ru.kpfu.itis.model.enums.TypeOrder;
+import ru.kpfu.itis.model.enums.OrderType;
 
 
 import javax.persistence.*;
@@ -16,10 +16,10 @@ public class Order {
     @ManyToMany
     private Collection<ProductInOrder> productInOrder;
     @OneToOne
-    @JoinColumn(name = "user_id", unique = true, nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @Enumerated(EnumType.STRING)
-    private TypeOrder typeOrder;
+    private OrderType typeOrder;
 
 
     public long getId() {
@@ -46,11 +46,11 @@ public class Order {
         this.user = user;
     }
 
-    public TypeOrder getTypeOrder() {
+    public OrderType getTypeOrder() {
         return typeOrder;
     }
 
-    public void setTypeOrder(TypeOrder typeOrder) {
+    public void setTypeOrder(OrderType typeOrder) {
         this.typeOrder = typeOrder;
     }
 }

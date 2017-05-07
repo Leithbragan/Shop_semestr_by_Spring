@@ -23,6 +23,7 @@
         <th>Активность</th>
         <th></th>
         <th></th>
+        <th></th>
         <th><h6><a href="/admin/main">Админка</a></h6></th>
     </tr>
     </thead>
@@ -50,6 +51,8 @@
                 <td>
                     <sf:button value="${user.id}" name="user_id" class="btn btn-success">Изменить</sf:button>
                 </td>
+                <td><a class="btn btn-success" href="admin/users/delete?id=${user.id}">Удалить</a></td>
+
             </sf:form>
         </tr>
         </tbody>

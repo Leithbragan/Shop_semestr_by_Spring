@@ -10,10 +10,10 @@ public class Stocktaking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToOne
-    @JoinColumn(name = "product_id", unique = true, nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
     @OneToOne
-    @JoinColumn(name = "warehouse_id", unique = true, nullable = false)
+    @JoinColumn(name = "warehouse_id", nullable = false)
     private Warehouse warehouse;
     @Column(nullable = false)
     private int quantity_product;

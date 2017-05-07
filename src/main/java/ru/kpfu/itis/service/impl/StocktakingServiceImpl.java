@@ -67,5 +67,10 @@ public class StocktakingServiceImpl implements StocktakingService {
         stocktakingRepository.save(stocktaking);
     }
 
+    @Override
+    public void delete(long id) {
+        stocktakingRepository.delete(id);
+    }
+
 
 }

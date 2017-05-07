@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.kpfu.itis.form.UserRegistrationForm;
+import ru.kpfu.itis.message.SendMail;
 import ru.kpfu.itis.service.UserService;
 import ru.kpfu.itis.util.validators.ValidatorForm;
 
@@ -51,7 +52,8 @@ public class IndexController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registerUser(@ModelAttribute("userform") UserRegistrationForm form, BindingResult result) {
         validatorForm.validate(form, result);
-
+        SendMail sendMail = new SendMail();
+        //sendMail.send(form.getEmail());
         if (result.hasErrors()) {
             return "registration";
         } else {
@@ -60,6 +62,9 @@ public class IndexController {
         }
     }
 
-
-
+    @RequestMapping(value = "/catalog", method = RequestMethod.GET)
+    public String catalog(Model model) {
+        model.addAttribute("userform", new UserRegistrationForm());
+        return "registration";
+    }
 }

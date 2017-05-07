@@ -17,4 +17,5 @@ public interface StocktakingService {
     List<Long> getIdsProducts(List<Stocktaking> stocktaking);
     void save(AddStocktakingForm form);
     void putQuantity(AddQuantityForm form);
+    void delete(long id);
 }

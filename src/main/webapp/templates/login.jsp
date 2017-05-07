@@ -18,8 +18,8 @@
     <div class="form">
         <h1>Вход</h1>
         <form class="login-form" action="/login/process" method="post">
-            <input type="text" name="login" placeholder="Email" path="login"/>
-            <input type="password" name="password" placeholder="Password" path="password"/>
+            <input type="text" name="login" placeholder="Логин" path="login"/>
+            <input type="password" name="password" placeholder="Пароль" path="password"/>
             <button type="submit">Войти</button>
             <h6><a href="/registration">Регистрация</a></h6>
         </form>

@@ -2,32 +2,27 @@
 <html>
 <head>
     <title>Админка</title>
-    <style>
-        <%@include file='css/admin_page.css' %>
-    </style>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        <%@include file='css/admin_page.css' %>
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-inverse" role="navigation">
-       <div class="bt">
-           <a class="btn btn-success" href="/product/add">Выход из админки</a>
-       </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/admin/product/add">Добавление продукта</a></li>
+            <li><a href="/admin/warehouse/add">Добавление склада</a></li>
+            <li><a href="/admin/stocktaking/add">Добавление учетной записи</a></li>
+            <li><a href="/admin/human/all">Список пользователей</a></li>
+            <li><a href="/admin/product/all">Список продуктов</a></li>
+            <li><a href="/admin/warehouse/all">Список складов</a></li>
+            <li><a href="#">Список заказов</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="logout">Выход из админки</a></li>
+        </ul>
     </nav>
-<div class="middle-body">
-    <div class="button-panel">
-        <div class="col-md-4"><a class="btn btn-success" href="/product/add">Добавление продукта</a></div>
-        <div class="col-md-4"><a class="btn btn-success" href="/warehouse/add">Добавление склада</a></div>
-        <div class="col-md-4"><a class="btn btn-success" href="/stocktaking/add">Добавление учетной записи</a></div>
-        <div class="col-md-4"><a class="btn btn-success" href="/users/all">Список пользователей</a></div>
-        <div class="col-md-4"><a class="btn btn-success" href="/product/all">Список продуктов</a></div>
-        <div class="col-md-4"><a class="btn btn-success" href="/warehouse/all">Список складов</a></div>
-    </div>
-</div>
-</div>
-<div class="footer-body">
-
-</div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package ru.kpfu.itis.model.enums;
 
-public enum  TypeOrder {
+public enum OrderType {
 
     DIALED,
     FORMAD,

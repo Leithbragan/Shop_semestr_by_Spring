@@ -22,7 +22,7 @@
             </div>
             <button type="submit">Добавить</button>
             <h6><a href="/admin/main">Админка</a></h6>
-            <h6><a href="/warehouse/all">Склады</a></h6>
+            <h6><a href="/admin/warehouse/all">Склады</a></h6>
         </sf:form>
     </div>
 </div>

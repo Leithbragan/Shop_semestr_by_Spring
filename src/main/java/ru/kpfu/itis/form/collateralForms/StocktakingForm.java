@@ -4,6 +4,7 @@ public class StocktakingForm {
 
     private long product;
     private long warehouse;
+    private int quantity;
 
     public long getProduct() {
         return product;
@@ -19,5 +20,13 @@ public class StocktakingForm {
 
     public void setWarehouse(long warehouses) {
         this.warehouse = warehouses;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

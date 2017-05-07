@@ -6,18 +6,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.kpfu.itis.form.UserModifyForm;
 import ru.kpfu.itis.form.collateralForms.UserForm;
+import ru.kpfu.itis.model.Order;
 import ru.kpfu.itis.model.User;
 import ru.kpfu.itis.model.enums.UserRole;
+import ru.kpfu.itis.service.OrderService;
 import ru.kpfu.itis.service.UserService;
 
 @Controller
-@RequestMapping(value = "users")
+@RequestMapping(value = "admin/user")
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String all_users(Model model) {
@@ -35,6 +40,16 @@ public class UserController {
         modifyUserForm.setRole(userRole);
         modifyUserForm.setIs_confirm(form.getIs_confirm());
         userService.modifyUser(modifyUserForm);
-        return "redirect:/users/all";
+        return "redirect:/admin/user/all";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(@RequestParam(value="id", required=true) Long id, Model model) {
+        for (Order order: orderService.getByUserId(id)) {
+            orderService.delete(order.getId());
+        }
+        userService.delete(id);
+        model.addAttribute("id", id);
+        return "redirect:/admin/user/all";
     }
 }

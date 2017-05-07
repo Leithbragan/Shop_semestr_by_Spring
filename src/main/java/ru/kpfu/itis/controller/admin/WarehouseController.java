@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.form.AddQuantityForm;
 import ru.kpfu.itis.form.AddWarehouseForm;
 import ru.kpfu.itis.form.collateralForms.QuantityForm;
 import ru.kpfu.itis.model.Stocktaking;
+import ru.kpfu.itis.model.Warehouse;
 import ru.kpfu.itis.service.ProductService;
 import ru.kpfu.itis.service.StocktakingService;
 import ru.kpfu.itis.service.WarehouseService;
@@ -19,7 +17,7 @@ import ru.kpfu.itis.util.validators.ValidatorAddProductForm;
 import ru.kpfu.itis.util.validators.ValidatorAddWarehouseForm;
 
 @Controller
-@RequestMapping(value = "warehouse")
+@RequestMapping(value = "admin/warehouse")
 public class WarehouseController {
 
     @Autowired
@@ -31,10 +29,21 @@ public class WarehouseController {
 
     private ValidatorAddWarehouseForm validatorAddWarehouseForm = new ValidatorAddWarehouseForm();
 
-    @RequestMapping(value = "/all")
-    public String catalog(Model model) {
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String warehouses(Model model) {
         model.addAttribute("warehouses", warehouseService.getAll());
         return "list_warehouses";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(@RequestParam(value="id", required=true) Long id,
+                         Model model) {
+        for (Stocktaking stocktaking: stocktakingService.getByWarehouseId(id)) {
+            stocktakingService.delete(stocktaking.getId());
+        }
+        warehouseService.delete(id);
+        model.addAttribute("id", id);
+        return "redirect:/admin/warehouse/all";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -60,7 +69,7 @@ public class WarehouseController {
             return "add_warehouse";
         } else {
             warehouseService.save(form);
-            return "redirect:/warehouse/all/";
+            return "redirect:/admin/warehouse/all";
         }
     }
 
@@ -71,6 +80,6 @@ public class WarehouseController {
         addQuantityForm.setStocktaking(stocktaking);
         addQuantityForm.setQuantity(form.getQuantity());
         stocktakingService.putQuantity(addQuantityForm);
-        return "redirect:/warehouse/" + id;
+        return "redirect:/admin/warehouse/" + id;
     }
 }

@@ -18,7 +18,7 @@ import ru.kpfu.itis.service.StocktakingService;
 import ru.kpfu.itis.service.WarehouseService;
 
 @Controller
-@RequestMapping(value = "stocktaking")
+@RequestMapping(value = "admin/stocktaking")
 public class StocktakingController {
 
     @Autowired
@@ -43,7 +43,8 @@ public class StocktakingController {
         AddStocktakingForm addStocktakingForm = new AddStocktakingForm();
         addStocktakingForm.setProduct(product);
         addStocktakingForm.setWarehouse(warehouse);
+        addStocktakingForm.setQuantity(form.getQuantity());
         stocktakingService.save(addStocktakingForm);
-        return "redirect:/";
+        return "redirect:/admin/warehouse/all";
     }
 }

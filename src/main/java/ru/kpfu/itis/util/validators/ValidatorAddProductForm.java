@@ -9,8 +9,6 @@ import java.util.regex.Pattern;
 
 public class ValidatorAddProductForm implements Validator {
 
-    private Pattern price = Pattern.compile("[0-9]{6}");
-
     @Override
     public boolean supports(Class<?> aClass) {
         return false;
@@ -20,19 +18,11 @@ public class ValidatorAddProductForm implements Validator {
     public void validate(Object o, Errors errors) {
         AddProductForm addProductForm = (AddProductForm) o;
 
-
-
         if (addProductForm.getName() == null || addProductForm.getName().isEmpty()) {
             errors.rejectValue("name", "", "Поле не может быть пустым");
         }
         if (addProductForm.getDescription() == null || addProductForm.getDescription().isEmpty()) {
             errors.rejectValue("description", "", "Поле не может быть пустым");
-        }
-        String str_price = String.valueOf(addProductForm.getPrice());
-        Matcher matcher_price = price.matcher(str_price);
-
-        if (!matcher_price.matches()) {
-            errors.rejectValue("price", "", "В поле цена могут быть только цифры");
         }
     }
 }

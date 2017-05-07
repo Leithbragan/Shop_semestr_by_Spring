@@ -10,6 +10,7 @@ public class AddStocktakingFormTransform {
         Stocktaking stocktaking = new Stocktaking();
         stocktaking.setProduct(form.getProduct());
         stocktaking.setWarehouse(form.getWarehouse());
+        stocktaking.setQuantity(form.getQuantity());
         return stocktaking;
     }
 

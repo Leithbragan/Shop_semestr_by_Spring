@@ -39,7 +39,7 @@
             <div class="error">
                 <sf:errors path="repassword"/>
             </div>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
         </sf:form>
     </div>
 </div>

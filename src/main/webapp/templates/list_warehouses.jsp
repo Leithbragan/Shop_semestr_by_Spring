@@ -1,4 +1,6 @@
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags/form" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -13,29 +15,28 @@
 </head>
 <body>
 <div class="collapse navbar-collapse"><a href="/admin/main">Админка</a>
-     <a href="/warehouse/add">Добавить склад</a></div>
+    <a href="/admin/warehouse/add">Добавить склад</a></div>
 <h1>Доступные склады</h1>
 <table class="table table-bordered">
     <thead>
     <tr>
-        <td>ID</td>
-        <td>Город</td>
-        <td>Улица</td>
-        <td></td>
+        <th>ID</th>
+        <th>Город</th>
+        <th>Улица</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
-    <core:forEach var="warehouse" items="${warehouses}">
+    <core:forEach var="war" items="${warehouses}">
         <tr>
-            <td>${warehouse.id}</td>
-            <td>${warehouse.city}</td>
-            <td>${warehouse.street}</td>
-            <td>
-                <a href="/warehouse/${warehouse.id}" class="btn btn-success">Посмотреть склад</a>
-            </td>
-            <td>
-                <a href="/warehouse/${warehouse.id}" class="btn btn-success">Удалить склад</a>
-            </td>
+                <td>${war.id}</td>
+                <td>${war.city}</td>
+                <td>${war.street}</td>
+                <td>
+                    <a href="/admin/warehouse/${war.id}" class="btn btn-success">Посмотреть склад</a>
+                </td>
+                <td><a href="/admin/warehouse/delete?id=${war.id}" class="btn btn-success">Delete</a></td>
         </tr>
     </core:forEach>
     </tbody>

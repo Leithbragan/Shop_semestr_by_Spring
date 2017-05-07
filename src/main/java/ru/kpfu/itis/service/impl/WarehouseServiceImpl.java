@@ -31,4 +31,9 @@ public class WarehouseServiceImpl implements WarehouseService {
         Warehouse warehouse = AddWarehouseFormTransform.transform(form);
         warehouseRepository.save(warehouse);
     }
+
+    @Override
+    public void delete(long id) {
+        warehouseRepository.delete(id);
+    }
 }

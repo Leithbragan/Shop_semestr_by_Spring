@@ -7,7 +7,7 @@
 .form {
     position: relative;
     z-index: 1;
-    background: #FFFFFF;
+    background: grey;
     max-width: 460px;
     margin: 0 auto 0;
     padding: 45px;
@@ -31,7 +31,7 @@
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
-    background: #4CAF50;
+    background: #363636;
     width: 100%;
     border: 0;
     padding: 15px;
@@ -41,7 +41,7 @@
 }
 
 .form button:hover, .form button:active, .form button:focus {
-    background: #43A047;
+    background: #000000;
 }
 
 .form .register-form {
