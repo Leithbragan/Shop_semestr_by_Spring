@@ -2,15 +2,15 @@ package ru.kpfu.itis.form.collateralForms;
 
 public class OrderForm {
 
-    private long id;
+    private long order_id;
     private String typeOrder;
 
-    public long getId() {
-        return id;
+    public long getOrder_id() {
+        return order_id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setOrder_id(long order_id) {
+        this.order_id = order_id;
     }
 
     public String getTypeOrder() {

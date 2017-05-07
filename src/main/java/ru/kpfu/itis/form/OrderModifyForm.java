@@ -1,28 +1,20 @@
 package ru.kpfu.itis.form;
 
+import ru.kpfu.itis.model.Order;
 import ru.kpfu.itis.model.User;
 import ru.kpfu.itis.model.enums.OrderType;
 
 public class OrderModifyForm {
 
-    private long id;
-    private User user;
+    private Order order;
     private OrderType typeOrder;
 
-    public long getId() {
-        return id;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public OrderType getTypeOrder() {

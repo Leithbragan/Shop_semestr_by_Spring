@@ -6,9 +6,7 @@ import ru.kpfu.itis.model.Order;
 public class OrderModifyFormTransform {
 
     public static Order transform(OrderModifyForm form){
-        Order order = new Order();
-        order.setUser(form.getUser());
-        order.setId(form.getId());
+        Order order = form.getOrder();
         order.setTypeOrder(form.getTypeOrder());
         return order;
     }

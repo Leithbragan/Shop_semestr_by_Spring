@@ -12,6 +12,7 @@ import ru.kpfu.itis.form.collateralForms.OrderForm;
 import ru.kpfu.itis.model.Order;
 import ru.kpfu.itis.model.enums.OrderType;
 import ru.kpfu.itis.service.OrderService;
+import ru.kpfu.itis.service.ProductInOrderService;
 import ru.kpfu.itis.service.UserService;
 
 @Controller
@@ -22,28 +23,30 @@ public class OrderController {
     private UserService userService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ProductInOrderService productInOrderService;
+
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public java.lang.String all_users(Model model) {
-        model.addAttribute("order_modify_form", new OrderForm());
+    public String all_orders(Model model) {
+        model.addAttribute("order_form", new OrderForm());
         model.addAttribute("orders", orderService.getAll());
         return "all_orders";
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.POST)
-    public java.lang.String all_users(@ModelAttribute("order_modify_form") OrderForm form) {
-        Order order = orderService.getById(form.getId());
+    public String all_orders(@ModelAttribute("order_form") OrderForm form) {
+        Order order = orderService.getById(form.getOrder_id());
         OrderType typeOrder = OrderType.valueOf(form.getTypeOrder());
         OrderModifyForm orderModifyForm = new OrderModifyForm();
-        orderModifyForm.setId(order.getId());
-        orderModifyForm.setUser(order.getUser());
+        orderModifyForm.setOrder(order);
         orderModifyForm.setTypeOrder(typeOrder);
         orderService.modify(orderModifyForm);
         return "redirect:/admin/order/all";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public java.lang.String delete(@RequestParam(value="id", required=true) Long id, Model model) {
+    public String delete(@RequestParam(value="id", required=true) Long id, Model model) {
         orderService.delete(id);
         model.addAttribute("id", id);
         return "redirect:/admin/order/all";

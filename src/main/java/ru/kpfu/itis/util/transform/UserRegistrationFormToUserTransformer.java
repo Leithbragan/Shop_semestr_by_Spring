@@ -17,7 +17,7 @@ public class UserRegistrationFormToUserTransformer {
         User user = new User();
         user.setUsername(form.getUsername());
         user.setEmail(form.getEmail());
-        user.setRole(UserRole.ROLE_ANONIM);
+        user.setRole(UserRole.ROLE_USER);
         user.setPassword(encoder.encode(form.getPassword()));
         user.setIs_confirm(false);
         return user;

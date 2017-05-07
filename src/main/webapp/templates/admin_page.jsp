@@ -18,7 +18,7 @@
             <li><a href="/admin/human/all">Список пользователей</a></li>
             <li><a href="/admin/product/all">Список продуктов</a></li>
             <li><a href="/admin/warehouse/all">Список складов</a></li>
-            <li><a href="#">Список заказов</a></li>
+            <li><a href="/admin/order/all">Список заказов</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="logout">Выход из админки</a></li>

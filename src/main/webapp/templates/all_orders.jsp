@@ -21,8 +21,6 @@
         <th>Продукт</th>
         <th>Тип</th>
         <th></th>
-        <th></th>
-        <th></th>
         <th><h6><a href="/admin/main">Админка</a></h6></th>
     </tr>
     </thead>
@@ -30,24 +28,22 @@
     <core:forEach var="order" items="${orders}">
         <tbody>
         <tr>
-            <sf:form method="post" modelAttribute="order_modify_form">
-                <td>${order.id}</td>
-                <td>${order.user.email}</td>
-                <core:forEach var="product" items="${order.productInOrder}">
-                    <p>${product.product.name}</p>
-                </core:forEach>
-                <td>${order.typeOrder}</td>
 
+            <td>${order.id}</td>
+            <td>${order.user.email}</td>
+            <td>${order.typeOrder}</td>
+            <sf:form action="/admin/order/all" method="post" modelAttribute="order_form">
                 <td><sf:select path="typeOrder">
                     <sf:option value="SEARS">Поиск товара на складе</sf:option>
                     <sf:option value="COMPLETED">Товар готов</sf:option>
                 </sf:select></td>
                 <td>
-                    <sf:button value="${order.id}" name="user_id" class="btn btn-success">Изменить</sf:button>
+                    <sf:button value="${order.id}" name="order_id" class="btn btn-success">Изменить</sf:button>
                 </td>
-                <td><a class="btn btn-success" href="admin/order/delete?id=${order.id}">Удалить</a></td>
-
             </sf:form>
+            <td><a class="btn btn-success" href="/admin/order/delete?id=${order.id}">Удалить</a></td>
+
+
         </tr>
         </tbody>
     </core:forEach>
