@@ -25,8 +25,14 @@
                 <sf:errors path="price"/>
             </div>
             <sf:select path="type" placeholder="Тип" cssClass="form_component">
-                <sf:option value="Еда">Еда</sf:option>
-                <sf:option value="Вода">Вода</sf:option>
+                <sf:option value="Телефоны">Телефоны</sf:option>
+                <sf:option value="Компьютеры">Компьютеры</sf:option>
+                <sf:option value="Планшеты">Планшеты</sf:option>
+                <sf:option value="Теревзоры">Теревзоры</sf:option>
+                <sf:option value="Бытовая тнхника">Бытовая тнхника</sf:option>
+                <sf:option value="Фотокамеры">Фотокамеры</sf:option>
+                <sf:option value="Аудио">Аудио</sf:option>
+                <sf:option value="Комплектующие для ПК">Комплектующие для ПК</sf:option>
             </sf:select>
             <button type="submit">Добавить</button>
             <h6><a href="/admin/main">Админка</a></h6>

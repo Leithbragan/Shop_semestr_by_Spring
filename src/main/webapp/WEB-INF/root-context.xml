@@ -11,7 +11,7 @@
 
     <import resource="persistence-config.xml"/>
     <import resource="security-config.xml"/>
-
+    <import resource="Spring-Mail.xml"/>
 
 
 </beans>

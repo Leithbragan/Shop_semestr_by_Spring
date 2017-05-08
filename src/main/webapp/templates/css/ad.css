@@ -1,11 +1,26 @@
 a {
     font-family: "Roboto", sans-serif;
-    color: #4CAF50;
+    color: #FFFFFF;
     text-align: center;
     text-decoration: none;
 }
 
 a:hover, a:active, a:focus {
-    color: #00ff00;
+    color: fuchsia;
     text-decoration: none;
+}
+
+body {
+    margin: 0;
+    background: grey;
+    color: #FFFFFF;
+    font-family: "Roboto", sans-serif;
+}
+
+.product{
+    color: #FFFFFF;
+}
+
+.product:hover, .product:active, .product:focus {
+    color: fuchsia;
 }

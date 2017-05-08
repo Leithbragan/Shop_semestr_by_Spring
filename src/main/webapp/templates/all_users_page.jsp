@@ -51,7 +51,7 @@
                 <td>
                     <sf:button value="${user.id}" name="user_id" class="btn btn-success">Изменить</sf:button>
                 </td>
-                <td><a class="btn btn-success" href="admin/users/delete?id=${user.id}">Удалить</a></td>
+                <td><a class="btn btn-danger" href="admin/users/delete?id=${user.id}">Удалить</a></td>
 
             </sf:form>
         </tr>

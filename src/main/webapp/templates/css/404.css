@@ -32,7 +32,7 @@
     text-transform: uppercase;
     text-decoration: none;
     outline: 0;
-    background: #4CAF50;
+    background: #363636;
     width: 100%;
     border: 0;
     padding: 15px;
@@ -42,15 +42,21 @@
 }
 
 .button:hover, .button:active, .button:focus {
-    background: #43A047;
+    background: #000000;
 }
 
 .button_place {
     position: relative;
     z-index: 1;
-    background: #FFFFFF;
+    background: gainsboro;
     max-width: 260px;
     margin: 0 auto 0;
     padding: 45px;
     text-align: center;
+}
+
+body {
+    margin: 0;
+    background: gainsboro;
+    font-family: "Roboto", sans-serif;
 }

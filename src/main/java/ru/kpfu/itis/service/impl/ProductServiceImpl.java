@@ -29,6 +29,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getAllByName(String name) {
+        return productRepository.findAllByName(name);
+    }
+
+    @Override
     public List<Product> getByIdIn(List<Long> ids) {
         return productRepository.findByIdIn(ids);
     }
@@ -45,4 +50,6 @@ public class ProductServiceImpl implements ProductService {
         Product product = productModifyFormTransform.transform(form, m_product);
         productRepository.save(product);
     }
+
+
 }

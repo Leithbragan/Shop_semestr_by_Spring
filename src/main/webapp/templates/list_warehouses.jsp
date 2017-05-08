@@ -36,7 +36,7 @@
                 <td>
                     <a href="/admin/warehouse/${war.id}" class="btn btn-success">Посмотреть склад</a>
                 </td>
-                <td><a href="/admin/warehouse/delete?id=${war.id}" class="btn btn-success">Delete</a></td>
+                <td><a href="/admin/warehouse/delete?id=${war.id}" class="btn btn-danger">Delete</a></td>
         </tr>
     </core:forEach>
     </tbody>

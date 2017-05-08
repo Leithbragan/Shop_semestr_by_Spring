@@ -44,8 +44,14 @@
                 <td><sf:input path="price"/></td>
 
                 <td><sf:select path="type">
-                    <sf:option value="Еда">Еда</sf:option>
-                    <sf:option value="Вода">Вода</sf:option>
+                    <sf:option value="Телефоны">Телефоны</sf:option>
+                    <sf:option value="Компьютеры">Компьютеры</sf:option>
+                    <sf:option value="Планшеты">Планшеты</sf:option>
+                    <sf:option value="Теревзоры">Теревзоры</sf:option>
+                    <sf:option value="Бытовая тнхника">Бытовая тнхника</sf:option>
+                    <sf:option value="Фотокамеры">Фотокамеры</sf:option>
+                    <sf:option value="Аудио">Аудио</sf:option>
+                    <sf:option value="Комплектующие для ПК">Комплектующие для ПК</sf:option>
                 </sf:select></td>
                 <td>
                     <sf:button value="${product.id}" name="id" class="btn btn-success">Изменить</sf:button>

@@ -3,18 +3,10 @@ package ru.kpfu.itis.controller.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import ru.kpfu.itis.form.AddProductForm;
-import ru.kpfu.itis.form.ProductModifyForm;
-import ru.kpfu.itis.model.Product;
+import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.service.ProductService;
 import ru.kpfu.itis.service.StocktakingService;
 import ru.kpfu.itis.service.WarehouseService;
-import ru.kpfu.itis.util.validators.ValidatorAddProductForm;
 
 @Controller
 @RequestMapping(value = "product")
@@ -27,9 +19,14 @@ public class ProductUserController {
     @Autowired
     private StocktakingService stocktakingService;
 
-    @RequestMapping(value = "/all")
-    public String catalog(Model model) {
-        model.addAttribute("products", productService.getAll());
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String mainPage(Model model, @RequestParam(value = "name", required = false) String productname) {
+        if (productname != null){
+            model.addAttribute("name", productService.getAllByName(productname));
+            model.addAttribute("products", productService.getAllByName(productname));
+            return "catalog";
+        }
+        model.addAttribute("products", productService.getAllByName(productname));
         return "catalog";
     }
 

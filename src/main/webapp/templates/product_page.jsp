@@ -4,7 +4,6 @@
     <title>Product</title>
 </head>
 <body>
-<h6><a href="/admin/main">Админка</a></h6>
     ${product.name}
     ${product.price}
     ${product.description}
