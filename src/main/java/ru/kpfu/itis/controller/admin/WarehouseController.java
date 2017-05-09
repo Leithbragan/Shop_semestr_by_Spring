@@ -38,7 +38,7 @@ public class WarehouseController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam(value="id", required=true) Long id,
                          Model model) {
-        for (Stocktaking stocktaking: stocktakingService.getByWarehouseId(id)) {
+        for (Stocktaking stocktaking: stocktakingService.getAllByWarehouseId(id)) {
             stocktakingService.delete(stocktaking.getId());
         }
         warehouseService.delete(id);
@@ -49,9 +49,9 @@ public class WarehouseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String product_page(@PathVariable("id") long id, Model model) {
         model.addAttribute("warehouse", warehouseService.getById(id));
-        model.addAttribute("stocktaking", stocktakingService.getByWarehouseId(id));
-        model.addAttribute("quantity", stocktakingService.getAllQuantityOnWarehouse(stocktakingService.getByWarehouseId(id)));
-        model.addAttribute("products", productService.getByIdIn(stocktakingService.getIdsProducts(stocktakingService.getByWarehouseId(id))));
+        model.addAttribute("stocktaking", stocktakingService.getAllByWarehouseId(id));
+        model.addAttribute("quantity", stocktakingService.getAllQuantityOnWarehouse(stocktakingService.getAllByWarehouseId(id)));
+        model.addAttribute("products", productService.getByIdIn(stocktakingService.getIdsProducts(stocktakingService.getAllByWarehouseId(id))));
         model.addAttribute("modify_quantity", new QuantityForm());
         return "warehouse_page";
     }

@@ -12,7 +12,7 @@ public interface StocktakingService {
 
     List<Stocktaking> getAll();
     Stocktaking getById(long id);
-    List<Stocktaking> getByWarehouseId(long id);
+    List<Stocktaking> getAllByWarehouseId(long id);
     int getAllQuantityOnWarehouse(List<Stocktaking> stocktaking);
     List<Long> getIdsProducts(List<Stocktaking> stocktaking);
     void save(AddStocktakingForm form);

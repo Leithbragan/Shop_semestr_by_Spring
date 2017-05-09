@@ -15,7 +15,7 @@
             <li><a href="/admin/product/add">Добавление продукта</a></li>
             <li><a href="/admin/warehouse/add">Добавление склада</a></li>
             <li><a href="/admin/stocktaking/add">Добавление учетной записи</a></li>
-            <li><a href="/admin/human/all">Список пользователей</a></li>
+            <li><a href="/admin/user/all">Список пользователей</a></li>
             <li><a href="/admin/product/all">Список продуктов</a></li>
             <li><a href="/admin/warehouse/all">Список складов</a></li>
             <li><a href="/admin/order/all">Список заказов</a></li>

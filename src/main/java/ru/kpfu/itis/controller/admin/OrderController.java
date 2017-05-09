@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.kpfu.itis.form.OrderModifyForm;
 import ru.kpfu.itis.form.collateralForms.OrderForm;
 import ru.kpfu.itis.model.Order;
+import ru.kpfu.itis.model.ProductInOrder;
 import ru.kpfu.itis.model.enums.OrderType;
 import ru.kpfu.itis.service.OrderService;
 import ru.kpfu.itis.service.ProductInOrderService;
@@ -47,6 +48,9 @@ public class OrderController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam(value="id", required=true) Long id, Model model) {
+        for (ProductInOrder product: productInOrderService.getAll()) {
+            productInOrderService.delete(product.getId());
+        }
         orderService.delete(id);
         model.addAttribute("id", id);
         return "redirect:/admin/order/all";

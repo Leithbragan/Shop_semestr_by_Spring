@@ -11,6 +11,7 @@ public interface OrderService {
     List<Order> getAll();
     List<Order> getByUserId(long id);
     Order getById(long id);
+    void save(Order order);
     void modify(OrderModifyForm form);
     void delete(long id);
 }

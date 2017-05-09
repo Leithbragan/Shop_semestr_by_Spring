@@ -6,14 +6,14 @@ a {
 }
 
 a:hover, a:active, a:focus {
-    color: fuchsia;
+    color: #17a09d;
     text-decoration: none;
 }
 
 body {
     margin: 0;
     background: grey;
-    color: #FFFFFF;
+    color: #000000;
     font-family: "Roboto", sans-serif;
 }
 

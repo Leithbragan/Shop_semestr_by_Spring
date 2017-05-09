@@ -11,5 +11,5 @@ public interface StocktakingRepository extends JpaRepository<Stocktaking, Long>{
 
     List<Stocktaking> findAll();
     Stocktaking findById(long id);
-    List<Stocktaking> findByWarehouseId(long id);
+    List<Stocktaking> findAllByWarehouseId(long id);
 }

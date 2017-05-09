@@ -22,12 +22,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getByUserId(long id) {
-        return orderRepository.findByUserId(id);
+        return orderRepository.findAllByUserId(id);
     }
 
     @Override
     public Order getById(long id) {
         return orderRepository.findById(id);
+    }
+
+    @Override
+    public void save(Order order) {
+        orderRepository.save(order);
     }
 
     @Override

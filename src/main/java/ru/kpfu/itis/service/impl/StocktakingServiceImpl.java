@@ -33,8 +33,8 @@ public class StocktakingServiceImpl implements StocktakingService {
     }
 
     @Override
-    public List<Stocktaking> getByWarehouseId(long id) {
-        return stocktakingRepository.findByWarehouseId(id);
+    public List<Stocktaking> getAllByWarehouseId(long id) {
+        return stocktakingRepository.findAllByWarehouseId(id);
     }
 
     @Override
