@@ -6,12 +6,15 @@ import org.springframework.stereotype.Service;
 import ru.kpfu.itis.form.UserModifyForm;
 import ru.kpfu.itis.form.UserRegistrationForm;
 import ru.kpfu.itis.message.MailMail;
+import ru.kpfu.itis.model.Token;
 import ru.kpfu.itis.model.User;
+import ru.kpfu.itis.repository.TokenRepository;
 import ru.kpfu.itis.repository.UserRepository;
 import ru.kpfu.itis.service.UserService;
 import ru.kpfu.itis.util.transform.UserModifyFormTransform;
 import ru.kpfu.itis.util.transform.UserRegistrationFormToUserTransformer;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -19,9 +22,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private  UserRepository userRepository;
-
     @Autowired
-    MailMail mailMail;
+    private TokenRepository tokenRepository;
+    @Autowired
+    private MailMail mailMail;
 
     @Override
     public List<User> getAll() {
@@ -31,15 +35,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(UserRegistrationForm form) {
         User user = UserRegistrationFormToUserTransformer.transform(form);
-        mailMail.sendMail( form.getEmail(),"zuzyk1337.zw@gmail.ru",
-                "nfbcbz777",
-                "Testing only \n\n Hello Spring Email Sender");
+        Token tk = new Token();
+        tk.setUuid(java.util.UUID.randomUUID().toString());
+        Calendar c = Calendar.getInstance();
+        c.setTime(new java.util.Date());
+        c.add(Calendar.DATE, 3);
+        java.util.Date now_plus_5_days = c.getTime();
+        tk.setDeleteDate(now_plus_5_days);
+        tk.setUser(user);
         userRepository.save(user);
-    }
-
-    @Secured("hasRole('ROLE_ADMIN')")
-    @Override
-    public void securedMethod() {
+        tokenRepository.save(tk);
+        mailMail.sendMail( "from@no-spam.com", form.getEmail(),
+                "Shop",
+                "http://localhost:8888/activate?tokenUuid=" + tk.getUuid());
     }
 
     @Override
@@ -58,5 +66,16 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(id);
     }
 
-
+    @Override
+    public boolean activatedUser(String string_token) {
+        Token token = tokenRepository.findOneByUuid(string_token);
+        if(token == null){
+            return false;
+        }
+        User user = userRepository.findOne(token.getUser().getId());
+        tokenRepository.delete(token);
+        user.setIs_confirm(true);
+        userRepository.save(user);
+        return true;
+    }
 }

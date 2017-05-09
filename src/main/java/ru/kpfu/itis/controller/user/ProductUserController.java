@@ -1,19 +1,21 @@
 package ru.kpfu.itis.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kpfu.itis.form.ProductModifyForm;
+
 import ru.kpfu.itis.form.collateralForms.ProductInOrderForm;
+
 import ru.kpfu.itis.model.Product;
 import ru.kpfu.itis.model.ProductInOrder;
-import ru.kpfu.itis.service.ProductInOrderService;
-import ru.kpfu.itis.service.ProductService;
-import ru.kpfu.itis.service.StocktakingService;
-import ru.kpfu.itis.service.WarehouseService;
 
-import java.util.List;
+import ru.kpfu.itis.model.User;
+import ru.kpfu.itis.model.enums.OrderType;
+import ru.kpfu.itis.service.*;
+
 
 @Controller
 @RequestMapping(value = "product")
@@ -23,6 +25,9 @@ public class ProductUserController {
     private ProductService productService;
     @Autowired
     private ProductInOrderService productInOrderService;
+    @Autowired
+    OrderService orderService;
+
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String catalog(@RequestParam(value = "name", required = false) String productname, Model model) {
@@ -45,9 +50,10 @@ public class ProductUserController {
         Product product = productService.getById(form.getProduct_id());
         ProductInOrder productInOrder = new ProductInOrder();
         productInOrder.setProduct(product);
-        productInOrder.setQuantity(1);
-        productInOrderService.save(productInOrder);
-        return "redirect:/basket/";
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        orderService.save(user, productInOrder);
+        long id = orderService.getByUserAndTypeOrder(user, OrderType.DIALED).getId();
+        return "redirect:/basket/" + id;
     }
 
     @RequestMapping(value = "/{id}")

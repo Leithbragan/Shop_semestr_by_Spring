@@ -30,15 +30,16 @@
         <th></th>
     </tr>
     </thead>
-    <sf:form method="post" modelAttribute="modify_product">
-        <core:forEach var="product" items="${products}">
-            <tbody>
-            <tr>
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.description}</td>
-                <td>${product.price} рублей</td>
-                <td>${product.type}</td>
+
+    <core:forEach var="product" items="${products}">
+        <tbody>
+        <tr>
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>${product.description}</td>
+            <td>${product.price} рублей</td>
+            <td>${product.type}</td>
+            <sf:form method="post" modelAttribute="modify_product">
                 <td><sf:input path="name"/></td>
                 <td><sf:textarea path="description"/></td>
                 <td><sf:input path="price"/></td>
@@ -56,10 +57,11 @@
                 <td>
                     <sf:button value="${product.id}" name="id" class="btn btn-success">Изменить</sf:button>
                 </td>
-            </tr>
-            </tbody>
-        </core:forEach>
-    </sf:form>
+            </sf:form>
+        </tr>
+        </tbody>
+    </core:forEach>
+
 </table>
 </body>
 </html>

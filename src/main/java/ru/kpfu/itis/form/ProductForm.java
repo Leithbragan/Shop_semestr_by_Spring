@@ -1,6 +1,7 @@
 package ru.kpfu.itis.form;
 
-public class ProductModifyForm {
+
+public class ProductForm {
 
     private long id;
     private String name;

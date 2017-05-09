@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.kpfu.itis.form.AddProductForm;
-import ru.kpfu.itis.form.AddQuantityForm;
-import ru.kpfu.itis.form.ProductModifyForm;
-import ru.kpfu.itis.form.collateralForms.QuantityForm;
+import ru.kpfu.itis.form.ProductForm;
 import ru.kpfu.itis.model.Product;
-import ru.kpfu.itis.model.Stocktaking;
 import ru.kpfu.itis.service.ProductService;
 import ru.kpfu.itis.service.StocktakingService;
 import ru.kpfu.itis.service.WarehouseService;
@@ -35,7 +32,7 @@ public class ProductController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String catalog(Model model) {
         model.addAttribute("products", productService.getAll());
-        model.addAttribute("modify_product", new ProductModifyForm());
+        model.addAttribute("modify_product", new ProductForm());
         return "list_product";
     }
 
@@ -64,15 +61,8 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.POST)
-    public String add_warehouse(@ModelAttribute("modify_product") ProductModifyForm form){
-       ProductModifyForm productModifyForm = new ProductModifyForm();
-        Product product = productService.getById(form.getId());
-        productModifyForm.setName(form.getName());
-        productModifyForm.setDescription(form.getDescription());
-        productModifyForm.setId(product.getId());
-        productModifyForm.setType(form.getType());
-        productModifyForm.setPrice(form.getPrice());
-        productService.modify(productModifyForm, product);
+    public String mod(@ModelAttribute("modify_product") ProductForm form){
+        productService.modify(form);
         return "redirect:/admin/product/all";
     }
 }

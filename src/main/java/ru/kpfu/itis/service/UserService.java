@@ -12,7 +12,7 @@ public interface UserService {
 
     List<User> getAll();
     void save(UserRegistrationForm form);
-    void securedMethod();
+    boolean activatedUser(String token);
     User getById(long id);
     void modifyUser(UserModifyForm form);
     void delete(long id);

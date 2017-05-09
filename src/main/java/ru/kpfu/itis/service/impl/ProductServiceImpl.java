@@ -3,7 +3,7 @@ package ru.kpfu.itis.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kpfu.itis.form.AddProductForm;
-import ru.kpfu.itis.form.ProductModifyForm;
+import ru.kpfu.itis.form.ProductForm;
 import ru.kpfu.itis.model.Product;
 import ru.kpfu.itis.repository.ProductRepository;
 import ru.kpfu.itis.service.ProductService;
@@ -45,9 +45,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void modify(ProductModifyForm form, Product m_product) {
+    public void modify(ProductForm form) {
         ProductModifyFormTransform productModifyFormTransform = new ProductModifyFormTransform();
-        Product product = productModifyFormTransform.transform(form, m_product);
+        Product product = productModifyFormTransform.transform(form);
         productRepository.save(product);
     }
 

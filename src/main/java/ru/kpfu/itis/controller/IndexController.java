@@ -55,4 +55,14 @@ public class IndexController {
         }
     }
 
+    @RequestMapping(value = "/activate", method = RequestMethod.GET)
+    public String activate(@ModelAttribute("tokenUuid") String token) {
+        if (userService.activatedUser(token)) {
+            return "reg_message";
+        } else {
+            return "404";
+        }
+
+    }
+
 }

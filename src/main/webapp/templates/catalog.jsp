@@ -1,5 +1,6 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -23,8 +24,9 @@
             <a class="navbar-brand">Shop</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="#">Корзина</a></li>
-            <li><a href="#">Заказы</a></li>
+            <li><a href="/">Главня</a></li>
+            <li><a href="/basket/">Корзина</a></li>
+            <li><a href="/orders/">Заказы</a></li>
         </ul>
         <form class="navbar-form navbar-left" action="/product/all">
             <div class="form-group">
@@ -34,11 +36,6 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </span>
         </form>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="registration">Регистрация</a></li>
-            <li><a href="login">Вход</a></li>
-            <li><a href="logout">Выход</a></li>
-        </ul>
     </div>
 </nav>
 <div class="container-fluid">
@@ -69,7 +66,6 @@
                                 <td class="text-content">${product.price} рублей</td>
                                 <sf:form method="post" modelAttribute="product_">
                                     <td>
-
                                         <sf:button class="btn btn-default" value="${product.id}" type="submit"
                                                    name="product_id">Купить
                                         </sf:button>

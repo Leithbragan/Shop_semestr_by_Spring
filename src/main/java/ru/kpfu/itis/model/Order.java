@@ -4,7 +4,7 @@ import ru.kpfu.itis.model.enums.OrderType;
 
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -12,9 +12,10 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "order_id", unique = true, nullable = false)
     private long id;
-    @ManyToMany
-    private Collection<ProductInOrder> productInOrder;
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    List<ProductInOrder> productInOrders;
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -30,12 +31,12 @@ public class Order {
         this.id = id;
     }
 
-    public Collection<ProductInOrder> getProductInOrder() {
-        return productInOrder;
+    public List<ProductInOrder> getProductInOrders() {
+        return productInOrders;
     }
 
-    public void setProductInOrder(Collection<ProductInOrder> productInOrder) {
-        this.productInOrder = productInOrder;
+    public void setProductInOrders(List<ProductInOrder> productInOrders) {
+        this.productInOrders = productInOrders;
     }
 
     public User getUser() {

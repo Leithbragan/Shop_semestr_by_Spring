@@ -1,4 +1,5 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -18,8 +19,11 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/product/all">Каталог</a></li>
-            <li><a href="#">Корзина</a></li>
-            <li><a href="#">Заказы</a></li>
+            <li><a href="/basket/">Корзина</a></li>
+            <li><a href="/orders/">Заказы</a></li>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="/admin/main">Админка</a></li>
+            </security:authorize>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="registration">Регистрация</a></li>

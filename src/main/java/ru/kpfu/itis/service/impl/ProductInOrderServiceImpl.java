@@ -1,18 +1,23 @@
 package ru.kpfu.itis.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.model.Order;
 import ru.kpfu.itis.model.ProductInOrder;
 import ru.kpfu.itis.repository.ProductInOrderRepository;
+import ru.kpfu.itis.service.OrderService;
 import ru.kpfu.itis.service.ProductInOrderService;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class ProductInOrderServiceImpl implements ProductInOrderService {
 
     @Autowired
-    ProductInOrderRepository productInOrderRepository;
+    private ProductInOrderRepository productInOrderRepository;
+
 
     @Override
     public List<ProductInOrder> getAll() {
@@ -20,12 +25,17 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
     }
 
     @Override
-    public void delete(long id) {
-        productInOrderRepository.delete(id);
+    public ProductInOrder getById(long id) {
+        return productInOrderRepository.findById(id);
     }
 
     @Override
-    public void save(ProductInOrder productInOrder) {
-        productInOrderRepository.save(productInOrder);
+    public List<ProductInOrder> getAllByOrder(Order order) {
+        return productInOrderRepository.findAllByOrder(order);
+    }
+
+    @Override
+    public void delete(long id) {
+        productInOrderRepository.delete(id);
     }
 }

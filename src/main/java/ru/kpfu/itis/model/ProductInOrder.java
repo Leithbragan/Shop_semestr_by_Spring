@@ -13,6 +13,8 @@ public class ProductInOrder {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
     private int quantity;
+    @ManyToOne
+    private Order order;
 
     public long getId() {
         return id;
@@ -36,5 +38,13 @@ public class ProductInOrder {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
