@@ -1,19 +1,14 @@
 package ru.kpfu.itis.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import ru.kpfu.itis.form.collateralForms.ProductInOrderForm;
-
 import ru.kpfu.itis.model.Product;
 import ru.kpfu.itis.model.ProductInOrder;
-
 import ru.kpfu.itis.model.User;
-import ru.kpfu.itis.model.enums.OrderType;
 import ru.kpfu.itis.service.*;
 
 
@@ -44,7 +39,7 @@ public class ProductUserController {
         return "catalog";
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    @RequestMapping(value = "/buy", method = RequestMethod.POST)
     public String catalog(@ModelAttribute("product_id") ProductInOrderForm form) {
 
         Product product = productService.getById(form.getProduct_id());
@@ -52,8 +47,7 @@ public class ProductUserController {
         productInOrder.setProduct(product);
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         orderService.save(user, productInOrder);
-        long id = orderService.getByUserAndTypeOrder(user, OrderType.DIALED).getId();
-        return "redirect:/basket/" + id;
+        return "redirect:/basket/";
     }
 
     @RequestMapping(value = "/{id}")

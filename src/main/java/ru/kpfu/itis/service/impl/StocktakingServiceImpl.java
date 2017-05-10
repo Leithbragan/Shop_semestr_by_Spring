@@ -38,6 +38,11 @@ public class StocktakingServiceImpl implements StocktakingService {
     }
 
     @Override
+    public List<Stocktaking> getAllByProductId(long id) {
+        return stocktakingRepository.findAllByProductId(id);
+    }
+
+    @Override
     public int getAllQuantityOnWarehouse(List<Stocktaking> stocktaking) {
         int quantity = 0;
         for (Stocktaking stocktaking_example : stocktaking) {

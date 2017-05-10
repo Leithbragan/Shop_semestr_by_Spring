@@ -24,7 +24,7 @@
         <th></th>
         <th></th>
         <th></th>
-        <th><h6><a href="/admin/main">Админка</a></h6></th>
+        <th><a class="btn btn-success" href="/admin/main">Админка</a></th>
     </tr>
     </thead>
 

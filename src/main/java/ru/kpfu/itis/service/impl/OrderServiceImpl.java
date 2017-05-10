@@ -12,6 +12,7 @@ import ru.kpfu.itis.model.enums.OrderType;
 import ru.kpfu.itis.repository.OrderRepository;
 import ru.kpfu.itis.repository.ProductInOrderRepository;
 import ru.kpfu.itis.service.OrderService;
+import ru.kpfu.itis.service.StocktakingService;
 import ru.kpfu.itis.util.transform.OrderModifyFormTransform;
 
 import java.util.LinkedList;
@@ -25,7 +26,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductInOrderRepository productInOrderRepository;
     @Autowired
-    MailMail mailMail;
+    private MailMail mailMail;
+    @Autowired
+    private StocktakingService stocktakingService;
 
     @Override
     public List<Order> getAll() {
@@ -48,13 +51,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getByUser(User user) {
+        return orderRepository.findByUser(user);
+    }
+
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @Override
     public void save(User user, ProductInOrder productInOrder) {
         if (getByUserAndTypeOrder(user, OrderType.DIALED) != null) {
             Order order = getByUserAndTypeOrder(user, OrderType.DIALED);
             List<ProductInOrder> productInOrders = productInOrderRepository.findAllByOrder(order);
             boolean flag = false;
-            for (ProductInOrder productInOrder1:productInOrders) {
-                if (productInOrder1.getId() == productInOrder.getId()){
+            for (ProductInOrder productInOrder1 : productInOrders) {
+                if (productInOrder1.getProduct().getId() == productInOrder.getProduct().getId()) {
                     productInOrder1.setQuantity(productInOrder1.getQuantity() + 1);
                     flag = true;
                 }
@@ -65,12 +74,11 @@ public class OrderServiceImpl implements OrderService {
             }
             order.setProductInOrders(productInOrders);
             orderRepository.save(order);
-            for (ProductInOrder productInOrder1:productInOrders) {
+            for (ProductInOrder productInOrder1 : productInOrders) {
                 productInOrder1.setOrder(orderRepository.findById(order.getId()));
                 productInOrderRepository.save(productInOrder1);
             }
-        }
-        else {
+        } else {
             List<ProductInOrder> productInOrders = new LinkedList<>();
             Order order = new Order();
             order.setTypeOrder(OrderType.DIALED);
@@ -93,11 +101,15 @@ public class OrderServiceImpl implements OrderService {
         if (order.getTypeOrder() == OrderType.SEARS) {
             mailMail.sendMail("from@no-spam.com", order.getUser().getEmail(),
                     "Shop",
-                    "Your order is being processed");
+                    "Ваш товар собирается");
         } else if (order.getTypeOrder() == OrderType.COMPLETED) {
             mailMail.sendMail("from@no-spam.com", order.getUser().getEmail(),
                     "Shop",
-                    "Your order is send");
+                    "Ваш товар отправлен");
+        }else if (order.getTypeOrder() == OrderType.FORMAD) {
+            mailMail.sendMail("from@no-spam.com", order.getUser().getEmail(),
+                    "Shop",
+                    "Ваш заказ отправлен на сборку");
         }
         orderRepository.save(order);
     }
@@ -105,5 +117,47 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(long id) {
         orderRepository.delete(id);
+    }
+
+    public int getResponseAboutMinusCount(long id, int count) {
+        int availableCount = getCountById(id);
+        int neededCount = count - 1;
+
+        int response = setResponse(id, neededCount, availableCount);
+
+        System.out.println(id + " - " + response);
+
+        return response;
+    }
+
+    public int getResponseAboutPlusCount(long id, int count) {
+        int availableCount = getCountById(id);
+        int neededCount = count + 1;
+
+        int response = setResponse(id, neededCount, availableCount);
+
+        System.out.println(id + " - " + response);
+
+        return response;
+    }
+
+
+    private int setResponse(long id, int neededCount, int availableCount) {
+        System.out.println(neededCount + " --- " + availableCount);
+        if (neededCount > availableCount)
+            return -1;
+        else if (neededCount <= 0)
+            return -2;
+        else if (neededCount <= availableCount) {
+            ProductInOrder productInOrder = productInOrderRepository.findByProductId(id);
+            productInOrder.setQuantity(neededCount);
+            productInOrderRepository.save(productInOrder);
+            return neededCount;
+        }
+        return 0;
+    }
+
+    public int getCountById(long id) {
+        return stocktakingService.getAllQuantityOnWarehouse(stocktakingService.getAllByProductId(id));
     }
 }

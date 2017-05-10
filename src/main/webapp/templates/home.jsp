@@ -26,8 +26,10 @@
             </security:authorize>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="registration">Регистрация</a></li>
-            <li><a href="login">Вход</a></li>
+            <security:authorize access="isAnonymous()">
+                <li><a href="registration">Регистрация</a></li>
+                <li><a href="login">Вход</a></li>
+            </security:authorize>
             <li><a href="logout">Выход</a></li>
         </ul>
     </div>

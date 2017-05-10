@@ -15,7 +15,11 @@ public interface OrderService {
     List<Order> getByUserId(long id);
     Order getById(long id);
     Order getByUserAndTypeOrder(User user, OrderType orderType);
+    List<Order> getByUser(User user);
     void save(User user, ProductInOrder productInOrder);
     void modify(OrderModifyForm form);
     void delete(long id);
+    int getResponseAboutMinusCount(long id, int count);
+    int getResponseAboutPlusCount(long id, int count);
+    int getCountById(long id);
 }

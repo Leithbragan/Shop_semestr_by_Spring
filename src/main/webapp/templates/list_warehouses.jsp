@@ -14,8 +14,8 @@
     </style>
 </head>
 <body>
-<div class="collapse navbar-collapse"><a href="/admin/main">Админка</a>
-    <a href="/admin/warehouse/add">Добавить склад</a></div>
+<div class="collapse navbar-collapse"><a class="btn btn-success" href="/admin/main">Админка</a>
+    <a class="btn btn-success" href="/admin/warehouse/add">Добавить склад</a></div>
 <h1>Доступные склады</h1>
 <table class="table table-bordered">
     <thead>

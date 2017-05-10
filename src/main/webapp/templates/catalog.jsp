@@ -36,6 +36,13 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </span>
         </form>
+        <ul class="nav navbar-nav navbar-right">
+        <security:authorize access="isAnonymous()">
+            <li><a href="/registration">Регистрация</a></li>
+            <li><a href="/login">Вход</a></li>
+        </security:authorize>
+            <li><a href="/logout">Выход</a></li>
+        </ul>
     </div>
 </nav>
 <div class="container-fluid">
@@ -64,9 +71,9 @@
                                 <td class="text-content"><a class="link-content" href="#${product.type}"
                                                             data-toggle="tab">${product.type}</a></td>
                                 <td class="text-content">${product.price} рублей</td>
-                                <sf:form method="post" modelAttribute="product_">
+                                <sf:form method="post" action="/product/buy" modelAttribute="product_">
                                     <td>
-                                        <sf:button class="btn btn-default" value="${product.id}" type="submit"
+                                        <sf:button class="btn btn-success" value="${product.id}" type="submit"
                                                    name="product_id">Купить
                                         </sf:button>
                                     </td>
@@ -77,7 +84,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="Телефон">
+            <div class="tab-pane fade" id="Телефоны">
                 <div class="text-content"><h1>Телефоны</h1></div>
                 <div>
                     <table class="table table-condensed table table-bordered">
@@ -95,7 +102,7 @@
                                     <sf:form method="post" modelAttribute="product_">
                                     <td>
 
-                                        <sf:button class="btn btn-default" value="${product.id}" type="submit"
+                                        <sf:button class="btn btn-success" value="${product.id}" type="submit"
                                                 name="product_id">Купить
                                         </sf:button>
                                     </td>
@@ -124,7 +131,7 @@
                                     <sf:form method="post" modelAttribute="product_">
                                         <td>
 
-                                            <sf:button class="btn btn-default" value="${product.id}" type="submit"
+                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
                                                        name="product_id">Купить
                                             </sf:button>
                                         </td>
@@ -152,7 +159,7 @@
                                     <sf:form method="post" modelAttribute="product_">
                                         <td>
 
-                                            <sf:button class="btn btn-default" value="${product.id}" type="submit"
+                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
                                                        name="product_id">Купить
                                             </sf:button>
                                         </td>
@@ -180,7 +187,7 @@
                                     <sf:form method="post" modelAttribute="product_">
                                         <td>
 
-                                            <sf:button class="btn btn-default" value="${product.id}" type="submit"
+                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
                                                        name="product_id">Купить
                                             </sf:button>
                                         </td>
@@ -208,7 +215,7 @@
                                     <sf:form method="post" modelAttribute="product_">
                                         <td>
 
-                                            <sf:button class="btn btn-default" value="${product.id}" type="submit"
+                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
                                                        name="product_id">Купить
                                             </sf:button>
                                         </td>
@@ -236,7 +243,7 @@
                                     <sf:form method="post" modelAttribute="product_">
                                         <td>
 
-                                            <sf:button class="btn btn-default" value="${product.id}" type="submit"
+                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
                                                        name="product_id">Купить
                                             </sf:button>
                                         </td>
@@ -264,7 +271,7 @@
                                     <sf:form method="post" modelAttribute="product_">
                                         <td>
 
-                                            <sf:button class="btn btn-default" value="${product.id}" type="submit"
+                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
                                                        name="product_id">Купить
                                             </sf:button>
                                         </td>
@@ -292,7 +299,7 @@
                                     <sf:form method="post" modelAttribute="product_">
                                         <td>
 
-                                            <sf:button class="btn btn-default" value="${product.id}" type="submit"
+                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
                                                        name="product_id">Купить
                                             </sf:button>
                                         </td>

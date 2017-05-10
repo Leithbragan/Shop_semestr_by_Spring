@@ -12,8 +12,8 @@
     </style>
 </head>
 <body>
-<div class="collapse navbar-collapse"><a href="/admin/main" class="href">Админка</a>
-    <a href="/admin/product/add" class="href">Добавить продукт</a></div>
+<div class="collapse navbar-collapse"><a class="btn btn-success" href="/admin/main" class="href">Админка</a>
+    <a class="btn btn-success" href="/admin/product/add" class="href">Добавить продукт</a></div>
 <h1>Продукты</h1>
 <table class="table table-bordered">
     <thead>

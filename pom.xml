@@ -119,6 +119,23 @@
             <version>1.4.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -147,7 +164,7 @@
                     <connectors>
                         <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
                             <maxIdleTime>3600000</maxIdleTime>
-                            <port>8888</port>
+                            <port>8880</port>
                         </connector>
                     </connectors>
                     <webApp>
