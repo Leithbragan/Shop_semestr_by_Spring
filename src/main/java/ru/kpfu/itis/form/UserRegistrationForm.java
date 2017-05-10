@@ -1,11 +1,18 @@
 package ru.kpfu.itis.form;
 
-public class UserRegistrationForm {
+import org.hibernate.validator.constraints.NotEmpty;
 
+
+public class UserRegistrationForm {
+    @NotEmpty
     private String username;
+    @NotEmpty
     private String password;
+    @NotEmpty
     private String repassword;
+    @NotEmpty
     private String email;
+
 
     public String getUsername() {
         return username;
@@ -38,4 +45,5 @@ public class UserRegistrationForm {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

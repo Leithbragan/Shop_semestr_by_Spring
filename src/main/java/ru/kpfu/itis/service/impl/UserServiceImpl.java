@@ -3,6 +3,7 @@ package ru.kpfu.itis.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.exception.AccountAlreadyExistExeption;
 import ru.kpfu.itis.form.UserModifyForm;
 import ru.kpfu.itis.form.UserRegistrationForm;
 import ru.kpfu.itis.message.MailMail;
@@ -26,6 +27,11 @@ public class UserServiceImpl implements UserService {
     private TokenRepository tokenRepository;
     @Autowired
     private MailMail mailMail;
+
+    @Override
+    public User getOneByUsername(String username) {
+        return userRepository.findOneByUsername(username);
+    }
 
     @Override
     public List<User> getAll() {
@@ -62,8 +68,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(long id) {
-        userRepository.delete(id);
+    public void delete(User user) {
+        userRepository.delete(user);
     }
 
     @Override

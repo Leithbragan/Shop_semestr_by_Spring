@@ -1,7 +1,7 @@
 package ru.kpfu.itis.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.kpfu.itis.form.OrderModifyForm;
 import ru.kpfu.itis.message.MailMail;
@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findByUser(user);
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+
     @Override
     public void save(User user, ProductInOrder productInOrder) {
         if (getByUserAndTypeOrder(user, OrderType.DIALED) != null) {
@@ -79,15 +79,15 @@ public class OrderServiceImpl implements OrderService {
                 productInOrderRepository.save(productInOrder1);
             }
         } else {
-            List<ProductInOrder> productInOrders = new LinkedList<>();
+            List<ProductInOrder> productInOrders_e = new LinkedList<>();
             Order order = new Order();
             order.setTypeOrder(OrderType.DIALED);
             order.setUser(user);
             productInOrder.setQuantity(1);
-            productInOrders.add(productInOrder);
-            order.setProductInOrders(productInOrders);
+            productInOrders_e.add(productInOrder);
+            order.setProductInOrders(productInOrders_e);
             orderRepository.save(order);
-            productInOrder.setOrder(getByUserAndTypeOrder(user, OrderType.DIALED));
+            productInOrder.setOrder(order);
             productInOrderRepository.save(productInOrder);
         }
 
@@ -106,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
             mailMail.sendMail("from@no-spam.com", order.getUser().getEmail(),
                     "Shop",
                     "Ваш товар отправлен");
-        }else if (order.getTypeOrder() == OrderType.FORMAD) {
+        } else if (order.getTypeOrder() == OrderType.FORMAD) {
             mailMail.sendMail("from@no-spam.com", order.getUser().getEmail(),
                     "Shop",
                     "Ваш заказ отправлен на сборку");
@@ -117,6 +117,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(long id) {
         orderRepository.delete(id);
+    }
+
+    @Override
+    public void delete(List<Order> orders) {
+        orderRepository.deleteInBatch(orders);
     }
 
     public int getResponseAboutMinusCount(long id, int count) {
@@ -149,9 +154,8 @@ public class OrderServiceImpl implements OrderService {
         else if (neededCount <= 0)
             return -2;
         else if (neededCount <= availableCount) {
-            ProductInOrder productInOrder = productInOrderRepository.findByProductId(id);
-            productInOrder.setQuantity(neededCount);
-            productInOrderRepository.save(productInOrder);
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            save(user, productInOrderRepository.findOneByProductId(id));
             return neededCount;
         }
         return 0;
@@ -160,4 +164,6 @@ public class OrderServiceImpl implements OrderService {
     public int getCountById(long id) {
         return stocktakingService.getAllQuantityOnWarehouse(stocktakingService.getAllByProductId(id));
     }
+
+
 }

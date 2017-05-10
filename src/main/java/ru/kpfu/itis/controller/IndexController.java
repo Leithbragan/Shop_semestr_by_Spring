@@ -12,6 +12,8 @@ import ru.kpfu.itis.form.UserRegistrationForm;
 import ru.kpfu.itis.service.UserService;
 import ru.kpfu.itis.util.validators.ValidatorForm;
 
+import javax.validation.Valid;
+
 @Controller
 public class IndexController {
 
@@ -41,12 +43,17 @@ public class IndexController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String getRegistrationPage(Model model) {
         model.addAttribute("userform", new UserRegistrationForm());
+        model.addAttribute("error", "");
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registerUser(@ModelAttribute("userform") UserRegistrationForm form, BindingResult result) {
+    public String registerUser(@ModelAttribute("userform") @Valid UserRegistrationForm form, BindingResult result, Model model) {
         validatorForm.validate(form, result);
+        if (userService.getOneByUsername(form.getUsername())!= null){
+            model.addAttribute("userform", form);
+            model.addAttribute("error", "Имя занято");
+        }
         if (result.hasErrors()) {
             return "registration";
         } else {

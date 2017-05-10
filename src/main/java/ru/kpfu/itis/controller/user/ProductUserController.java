@@ -2,13 +2,17 @@ package ru.kpfu.itis.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.kpfu.itis.exception.UserIsNotActivate;
 import ru.kpfu.itis.form.collateralForms.ProductInOrderForm;
 import ru.kpfu.itis.model.Product;
 import ru.kpfu.itis.model.ProductInOrder;
+import ru.kpfu.itis.model.Token;
 import ru.kpfu.itis.model.User;
+import ru.kpfu.itis.repository.TokenRepository;
 import ru.kpfu.itis.service.*;
 
 
@@ -21,7 +25,9 @@ public class ProductUserController {
     @Autowired
     private ProductInOrderService productInOrderService;
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
+    @Autowired
+    private TokenRepository tokenRepository;
 
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -36,16 +42,21 @@ public class ProductUserController {
 
         model.addAttribute("product_", new ProductInOrderForm());
         model.addAttribute("products", productService.getAll());
+        model.addAttribute("error", "");
         return "catalog";
     }
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
-    public String catalog(@ModelAttribute("product_id") ProductInOrderForm form) {
-
+    public String catalog(@ModelAttribute("product_id") ProductInOrderForm form, Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!user.isIs_confirm()){
+            model.addAttribute("error", "Пользователь не активен");
+            model.addAttribute("products", productService.getAll());
+            return "catalog";
+        }
         Product product = productService.getById(form.getProduct_id());
         ProductInOrder productInOrder = new ProductInOrder();
         productInOrder.setProduct(product);
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         orderService.save(user, productInOrder);
         return "redirect:/basket/";
     }

@@ -43,7 +43,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add_warehouse_page(Model model){
+    public String add_product_page(Model model){
         model.addAttribute("product_form", new AddProductForm());
         return "add_product";
     }
@@ -62,6 +62,8 @@ public class ProductController {
 
     @RequestMapping(value = "/all", method = RequestMethod.POST)
     public String mod(@ModelAttribute("modify_product") ProductForm form){
+        Product product = productService.getById(form.getId());
+        form.setProduct(product);
         productService.modify(form);
         return "redirect:/admin/product/all";
     }

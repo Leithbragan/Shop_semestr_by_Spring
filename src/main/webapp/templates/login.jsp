@@ -22,6 +22,7 @@
             <input type="password" name="password" placeholder="Пароль" path="password"/>
             <button type="submit">Войти</button>
             <h6><a href="/registration">Регистрация</a></h6>
+            <h6><a href="/">Главная</a></h6>
         </form>
     </div>
 </div>

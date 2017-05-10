@@ -7,10 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.kpfu.itis.model.Order;
 import ru.kpfu.itis.model.ProductInOrder;
 import ru.kpfu.itis.model.User;
 import ru.kpfu.itis.service.OrderService;
 import ru.kpfu.itis.service.ProductInOrderService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "orders")
@@ -24,7 +27,9 @@ public class OrderUserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String all_orders(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("orders", orderService.getByUser(user));
+        List<Order> orders = orderService.getByUser(user);
+        model.addAttribute("orders", orders);
+        model.addAttribute("productInOrders", productInOrderService.getAllByOrderIn(orders));
         return "all_orders";
     }
 

@@ -35,7 +35,17 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
     }
 
     @Override
+    public List<ProductInOrder> getAllByOrderIn(List<Order> orders) {
+        return productInOrderRepository.findAllByOrderIn(orders);
+    }
+
+    @Override
     public void delete(long id) {
         productInOrderRepository.delete(id);
+    }
+
+    @Override
+    public void delete(List<ProductInOrder> productInOrders) {
+        productInOrderRepository.deleteInBatch(productInOrders);
     }
 }

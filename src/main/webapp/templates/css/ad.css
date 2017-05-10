@@ -24,3 +24,7 @@ body {
 .product:hover, .product:active, .product:focus {
     color: fuchsia;
 }
+
+i {
+    color: red;
+}

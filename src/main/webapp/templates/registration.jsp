@@ -1,5 +1,6 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,10 +16,9 @@
         <h1>Регистрация</h1>
 
         <sf:form action="/registration" method="post" modelAttribute="userform" cssClass="login-form">
-
             <sf:input path="username" id="inputUsername"
                       placeholder="Логин"/>
-            <div class="error">
+            <div class="error"><i>${error}</i>
                 <sf:errors path="username"/>
             </div>
 

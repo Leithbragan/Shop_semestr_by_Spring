@@ -10,6 +10,7 @@ public interface ProductInOrderRepository extends JpaRepository<ProductInOrder, 
 
     List<ProductInOrder> findAll();
     ProductInOrder findById(long id);
-    ProductInOrder findByProductId(long id);
+    ProductInOrder findOneByProductId(long id);
     List<ProductInOrder> findAllByOrder(Order order);
+    List<ProductInOrder> findAllByOrderIn(List<Order> orders);
 }

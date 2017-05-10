@@ -24,7 +24,7 @@
             <a class="navbar-brand">Shop</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/">Главня</a></li>
+            <li><a href="/">Главная</a></li>
             <li><a href="/basket/">Корзина</a></li>
             <li><a href="/orders/">Заказы</a></li>
         </ul>
@@ -45,6 +45,7 @@
         </ul>
     </div>
 </nav>
+<i>${error}</i>
 <div class="container-fluid">
     <div class="nav navbar-nav">
         <ul class="nav nav-tabs nav-justified">
@@ -99,7 +100,7 @@
                                     <td class="text-content"><a class="link-content" href="#${product.type}"
                                                                 data-toggle="tab">${product.type}</a></td>
                                     <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" modelAttribute="product_">
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
                                     <td>
 
                                         <sf:button class="btn btn-success" value="${product.id}" type="submit"
@@ -128,7 +129,7 @@
                                     <td class="text-content"><a class="link-content" href="#${product.type}"
                                                                 data-toggle="tab">${product.type}</a></td>
                                     <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" modelAttribute="product_">
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
                                         <td>
 
                                             <sf:button class="btn btn-success" value="${product.id}" type="submit"
@@ -156,7 +157,7 @@
                                     <td class="text-content"><a class="link-content" href="#${product.type}"
                                                                 data-toggle="tab">${product.type}</a></td>
                                     <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" modelAttribute="product_">
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
                                         <td>
 
                                             <sf:button class="btn btn-success" value="${product.id}" type="submit"
@@ -184,7 +185,7 @@
                                     <td class="text-content"><a class="link-content" href="#${product.type}"
                                                                 data-toggle="tab">${product.type}</a></td>
                                     <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" modelAttribute="product_">
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
                                         <td>
 
                                             <sf:button class="btn btn-success" value="${product.id}" type="submit"
@@ -212,7 +213,7 @@
                                     <td class="text-content"><a class="link-content" href="#${product.type}"
                                                                 data-toggle="tab">${product.type}</a></td>
                                     <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" modelAttribute="product_">
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
                                         <td>
 
                                             <sf:button class="btn btn-success" value="${product.id}" type="submit"
@@ -240,7 +241,7 @@
                                     <td class="text-content"><a class="link-content" href="#${product.type}"
                                                                 data-toggle="tab">${product.type}</a></td>
                                     <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" modelAttribute="product_">
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
                                         <td>
 
                                             <sf:button class="btn btn-success" value="${product.id}" type="submit"
@@ -268,7 +269,7 @@
                                     <td class="text-content"><a class="link-content" href="#${product.type}"
                                                                 data-toggle="tab">${product.type}</a></td>
                                     <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" modelAttribute="product_">
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
                                         <td>
 
                                             <sf:button class="btn btn-success" value="${product.id}" type="submit"
@@ -296,7 +297,7 @@
                                     <td class="text-content"><a class="link-content" href="#${product.type}"
                                                                 data-toggle="tab">${product.type}</a></td>
                                     <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" modelAttribute="product_">
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
                                         <td>
 
                                             <sf:button class="btn btn-success" value="${product.id}" type="submit"
@@ -313,6 +314,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

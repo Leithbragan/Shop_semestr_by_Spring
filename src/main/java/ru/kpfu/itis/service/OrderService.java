@@ -13,12 +13,14 @@ public interface OrderService {
 
     List<Order> getAll();
     List<Order> getByUserId(long id);
+
     Order getById(long id);
     Order getByUserAndTypeOrder(User user, OrderType orderType);
     List<Order> getByUser(User user);
     void save(User user, ProductInOrder productInOrder);
     void modify(OrderModifyForm form);
     void delete(long id);
+    void delete(List<Order> orders);
     int getResponseAboutMinusCount(long id, int count);
     int getResponseAboutPlusCount(long id, int count);
     int getCountById(long id);
