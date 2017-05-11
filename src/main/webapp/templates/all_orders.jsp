@@ -47,8 +47,6 @@
         <security:authorize access="hasRole('ROLE_ADMIN')">
             <th></th>
         </security:authorize>
-        <th></th>
-
     </tr>
     </thead>
 
@@ -81,14 +79,7 @@
                     </td>
                 </sf:form>
             </security:authorize>
-            <security:authorize access="hasRole('ROLE_ADMIN')">
-                <td><a class="btn btn-danger" href="/admin/order/delete?id=${order.id}">Удалить</a></td>
-            </security:authorize>
-            <security:authorize access="hasRole('ROLE_USER')">
                 <td><a class="btn btn-danger" href="/orders/delete?id=${order.id}">Отменить</a></td>
-            </security:authorize>
-
-
         </tr>
         </tbody>
     </core:forEach>

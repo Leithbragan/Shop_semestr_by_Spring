@@ -38,9 +38,8 @@ public class OrderUserController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam(value="id") Long id, Model model) {
         Order order = orderService.getById(id);
-        for (ProductInOrder product: productInOrderService.getAllByOrder(order)) {
-            productInOrderService.delete(product.getId());
-        }
+        List<ProductInOrder> productInOrder = productInOrderService.getAllByOrder(order);
+        productInOrderService.delete(productInOrder);
         orderService.delete(id);
         model.addAttribute("id", id);
         return "redirect:/orders/";

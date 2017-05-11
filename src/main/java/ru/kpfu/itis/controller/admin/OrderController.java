@@ -45,14 +45,4 @@ public class OrderController {
         orderService.modify(orderModifyForm);
         return "redirect:/admin/order/all";
     }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam(value="id", required=true) Long id, Model model) {
-        for (ProductInOrder product: productInOrderService.getAll()) {
-            productInOrderService.delete(product.getId());
-        }
-        orderService.delete(id);
-        model.addAttribute("id", id);
-        return "redirect:/admin/order/all";
-    }
 }
