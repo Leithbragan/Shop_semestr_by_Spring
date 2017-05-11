@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         tokenRepository.save(tk);
         mailMail.sendMail( "from@no-spam.com", form.getEmail(),
                 "Shop",
-                "http://localhost:8888/activate?tokenUuid=" + tk.getUuid());
+                "http://localhost:8880/activate?tokenUuid=" + tk.getUuid());
     }
 
     @Override

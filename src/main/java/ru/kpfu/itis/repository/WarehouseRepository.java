@@ -10,6 +10,7 @@ import java.util.List;
 public interface WarehouseRepository extends JpaRepository<Warehouse, Long> {
 
     List<Warehouse> findAll();
+
     Warehouse findById(long id);
 
 }

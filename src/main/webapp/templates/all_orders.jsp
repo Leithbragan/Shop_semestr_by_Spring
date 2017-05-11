@@ -33,18 +33,24 @@
         <security:authorize access="hasRole('ROLE_USER')">
             <th>Номер заказа</th>
         </security:authorize>
-        <security:authorize access="hasRole('ROLE_ADMIN')">
-            <th>Пользователь</th>
-        </security:authorize>
         <security:authorize access="hasRole('ROLE_USER')">
             <th>Товары</th>
         </security:authorize>
         <security:authorize access="hasRole('ROLE_ADMIN')">
             <th></th>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <th>Пользователь</th>
+            </security:authorize>
+            <security:authorize access="hasRole('ROLE_USER')">
+                <th></th>
+            </security:authorize>
             <th></th>
         </security:authorize>
         <th>Тип</th>
         <security:authorize access="hasRole('ROLE_ADMIN')">
+            <th></th>
+        </security:authorize>
+        <security:authorize access="hasRole('ROLE_USER')">
             <th></th>
         </security:authorize>
     </tr>
@@ -79,7 +85,9 @@
                     </td>
                 </sf:form>
             </security:authorize>
+            <security:authorize access="hasRole('ROLE_USER')">
                 <td><a class="btn btn-danger" href="/orders/delete?id=${order.id}">Отменить</a></td>
+            </security:authorize>
         </tr>
         </tbody>
     </core:forEach>

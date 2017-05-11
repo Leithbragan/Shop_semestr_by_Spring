@@ -57,6 +57,11 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findByUser(user);
     }
 
+    @Override
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
+
 
     @Override
     public void save(User user, ProductInOrder productInOrder) {
@@ -68,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
                 if (productInOrder1.getProduct().getId() == productInOrder.getProduct().getId()) {
                     productInOrder1.setQuantity(productInOrder1.getQuantity() + 1);
                     Stocktaking stocktaking = stocktakingService.getByProduct(productInOrder.getProduct());
-                    stocktaking.setQuantity(stocktaking.getQuantity()-1);
+                    stocktaking.setQuantity(stocktaking.getQuantity() - 1);
                     stocktakingService.save(stocktaking);
                     flag = true;
                 }
@@ -77,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
                 productInOrder.setQuantity(1);
                 productInOrders.add(productInOrder);
                 Stocktaking stocktaking = stocktakingService.getByProduct(productInOrder.getProduct());
-                stocktaking.setQuantity(stocktaking.getQuantity()-1);
+                stocktaking.setQuantity(stocktaking.getQuantity() - 1);
                 stocktakingService.save(stocktaking);
             }
             order.setProductInOrders(productInOrders);
@@ -98,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
             productInOrder.setOrder(order);
             productInOrderRepository.save(productInOrder);
             Stocktaking stocktaking = stocktakingService.getByProduct(productInOrder.getProduct());
-            stocktaking.setQuantity(stocktaking.getQuantity()-1);
+            stocktaking.setQuantity(stocktaking.getQuantity() - 1);
             stocktakingService.save(stocktaking);
         }
 
@@ -147,8 +152,13 @@ public class OrderServiceImpl implements OrderService {
         return setResponse(id, neededCount, availableCount, "plus", count);
     }
 
+    @Override
+    public List<Order> getForList(long id, List<OrderType> orderTypes) {
+        return orderRepository.findByUserIdAndTypeOrderIn(id, orderTypes);
+    }
+
     private int setResponse(long id, int neededCount, int availableCount, String name_action, int count) {
-        if (neededCount > availableCount+count)
+        if (neededCount > availableCount + count)
             return -1;
         else if (neededCount == 0)
             return -2;
@@ -158,17 +168,17 @@ public class OrderServiceImpl implements OrderService {
             Order order = getByUserAndTypeOrder(user, OrderType.DIALED);
             ProductInOrder productInOrder = productInOrderRepository.findOneByOrderIdAndProductId(order.getId(), id);
             if (Objects.equals(name_action, "plus")) {
-                productInOrder.setQuantity(productInOrder.getQuantity()+1);
+                productInOrder.setQuantity(productInOrder.getQuantity() + 1);
                 productInOrderRepository.save(productInOrder);
-                stocktaking.setQuantity(stocktaking.getQuantity()-1);
+                stocktaking.setQuantity(stocktaking.getQuantity() - 1);
                 stocktakingService.save(stocktaking);
                 System.out.println("Кнопка минус нажата запись: stocktaking_id - " + stocktaking.getId() + ", order_id - " + order.getId() + ", productInOrder_id - " + productInOrder.getId());
                 return neededCount;
             }
             if (Objects.equals(name_action, "minus")) {
-                productInOrder.setQuantity(productInOrder.getQuantity()-1);
+                productInOrder.setQuantity(productInOrder.getQuantity() - 1);
                 productInOrderRepository.save(productInOrder);
-                stocktaking.setQuantity(stocktaking.getQuantity()+1);
+                stocktaking.setQuantity(stocktaking.getQuantity() + 1);
                 stocktakingService.save(stocktaking);
                 System.out.println("Кнопка минус нажата запись: stocktaking_id - " + stocktaking.getId() + ", order_id - " + order.getId() + ", productInOrder_id - " + productInOrder.getId());
                 return neededCount;

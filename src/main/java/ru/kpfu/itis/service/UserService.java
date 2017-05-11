@@ -10,10 +10,16 @@ import java.util.List;
 @Service
 public interface UserService {
     User getOneByUsername(String username);
+
     List<User> getAll();
+
     void save(UserRegistrationForm form);
+
     boolean activatedUser(String token);
+
     User getById(long id);
+
     void modifyUser(UserModifyForm form);
+
     void delete(User user);
 }

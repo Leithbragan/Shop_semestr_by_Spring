@@ -11,9 +11,14 @@ import java.util.List;
 public interface ProductService {
 
     List<Product> getAll();
+
     Product getById(long id);
+
     List<Product> getAllByName(String name);
+
     List<Product> getByIdIn(List<Long> ids);
+
     void save(AddProductForm form);
+
     void modify(ProductForm form);
 }

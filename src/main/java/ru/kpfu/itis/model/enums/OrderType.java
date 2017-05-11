@@ -6,5 +6,5 @@ public enum OrderType {
     FORMAD,
     SEARS,
     COMPLETED,
-
+    DELETE,
 }

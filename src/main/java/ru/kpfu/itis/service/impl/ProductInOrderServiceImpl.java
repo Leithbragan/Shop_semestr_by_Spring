@@ -40,6 +40,11 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
     }
 
     @Override
+    public void returnProducts(List<ProductInOrder> productInOrders) {
+
+    }
+
+    @Override
     public void delete(long id) {
         productInOrderRepository.delete(id);
     }

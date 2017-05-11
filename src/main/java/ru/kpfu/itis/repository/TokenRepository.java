@@ -9,5 +9,6 @@ import ru.kpfu.itis.model.User;
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
     Token findOneByUuid(String uuid);
+
     Token findOneByUser(User user);
 }

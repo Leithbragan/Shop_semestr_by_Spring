@@ -10,7 +10,10 @@ import java.util.List;
 public interface WarehouseService {
 
     List<Warehouse> getAll();
+
     Warehouse getById(long id);
+
     void save(AddWarehouseForm form);
+
     void delete(long id);
 }
