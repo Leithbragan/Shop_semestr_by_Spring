@@ -14,6 +14,23 @@
     </style>
 </head>
 <body>
+<nav class="navbar navbar-inverse" role="navigation">
+    <ul class="nav navbar-nav">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">Shop</a>
+        </div>
+        <li><a href="/admin/product/add">Добавление продукта</a></li>
+        <li><a href="/admin/warehouse/add">Добавление склада</a></li>
+        <li><a href="/admin/stocktaking/add">Добавление учетной записи</a></li>
+        <li><a href="/admin/user/all">Список пользователей</a></li>
+        <li><a href="/admin/product/all">Список продуктов</a></li>
+        <li><a href="/admin/warehouse/all">Список складов</a></li>
+        <li><a href="/admin/order/all">Список заказов</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="logout">Выход из админки</a></li>
+    </ul>
+</nav>
 <div class="collapse navbar-collapse"><a class="btn btn-success" href="/admin/main">Админка</a>
     <a class="btn btn-success" href="/admin/warehouse/add">Добавить склад</a></div>
 <h1>Доступные склады</h1>

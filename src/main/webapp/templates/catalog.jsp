@@ -37,10 +37,10 @@
             </span>
         </form>
         <ul class="nav navbar-nav navbar-right">
-        <security:authorize access="isAnonymous()">
-            <li><a href="/registration">Регистрация</a></li>
-            <li><a href="/login">Вход</a></li>
-        </security:authorize>
+            <security:authorize access="isAnonymous()">
+                <li><a href="/registration">Регистрация</a></li>
+                <li><a href="/login">Вход</a></li>
+            </security:authorize>
             <li><a href="/logout">Выход</a></li>
         </ul>
     </div>
@@ -64,19 +64,23 @@
                 <div class="text-content"><h1 class="text-content">Все</h1></div>
                 <div>
                     <table class="table table-condensed table table-bordered">
-                        <core:forEach var="product" items="${products}">
+                        <core:forEach var="stocktak" items="${stocktaking}">
                             <tr>
                                 <td class="text-content"><a class="product"
-                                                            href="/product/?id=${product.id}">${product.name}</a>
-                                    <h5>${product.description}</h5></td>
-                                <td class="text-content"><a class="link-content" href="#${product.type}"
-                                                            data-toggle="tab">${product.type}</a></td>
-                                <td class="text-content">${product.price} рублей</td>
-                                <sf:form method="post" action="/product/buy" modelAttribute="product_">
+                                                            href="/product/?id=${stocktak.product.id}">${stocktak.product.name}</a>
+                                    <h5>${stocktak.product.description}</h5></td>
+                                <td class="text-content"><a class="link-content" href="#${stocktak.product.type}"
+                                                            data-toggle="tab">${stocktak.product.type}</a></td>
+                                <td class="text-content">${stocktak.product.price} рублей/шт</td>
+                                <td class="text-content">г. ${stocktak.warehouse.city}, ул. ${stocktak.warehouse.street}</td>
+                                <td class="text-content">
+                                    <core:if test="${stocktak.quantity == 0}">  Нет в наличии</core:if>
+                                    <core:if test="${stocktak.quantity != 0}">  ${stocktak.quantity} шт</core:if></td>
+                                <sf:form method="post" action="/product/buy" modelAttribute="product_form">
                                     <td>
-                                        <sf:button class="btn btn-success" value="${product.id}" type="submit"
-                                                   name="product_id">Купить
-                                        </sf:button>
+                                        <button class="btn btn-success" <core:if test="${stocktak.quantity == 0}">disabled</core:if> value="${stocktak.product.id}" type="submit"
+                                                name="product_id" id="button_add_${stocktak.product.id}">Купить
+                                        </button>
                                     </td>
                                 </sf:form>
                             </tr>
@@ -89,24 +93,25 @@
                 <div class="text-content"><h1>Телефоны</h1></div>
                 <div>
                     <table class="table table-condensed table table-bordered">
-                        <core:forEach var="product" items="${products}">
+                        <core:forEach var="stocktak" items="${stocktaking}">
                             <core:set var="type_p" value="Телефоны"/>
-                            <core:set var="type" value="${product.type}"/>
-                            <core:if test="${type == type_p}">
+                            <core:if test="${stocktak.product.type == type_p}">
                                 <tr>
                                     <td class="text-content"><a class="product"
-                                                                href="/product/?id=${product.id}">${product.name}</a>
-                                        <h5>${product.description}</h5></td>
-                                    <td class="text-content"><a class="link-content" href="#${product.type}"
-                                                                data-toggle="tab">${product.type}</a></td>
-                                    <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
-                                    <td>
-
-                                        <sf:button class="btn btn-success" value="${product.id}" type="submit"
-                                                name="product_id">Купить
-                                        </sf:button>
-                                    </td>
+                                                                href="/product/?id=${stocktak.product.id}">${stocktak.product.name}</a>
+                                        <h5>${stocktak.product.description}</h5></td>
+                                    <td class="text-content"><a class="link-content" href="#${stocktak.product.type}"
+                                                                data-toggle="tab">${stocktak.product.type}</a></td>
+                                    <td class="text-content">${stocktak.product.price} рублей/шт</td>
+                                    <td class="text-content">г. ${stocktak.warehouse.city}, ул. ${stocktak.warehouse.street}</td>
+                                    <td class="text-content"><core:if test="${stocktak.quantity == 0}">  Нет в наличии</core:if>
+                                        <core:if test="${stocktak.quantity != 0}">  ${stocktak.quantity} шт</core:if></td>
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_form">
+                                        <td>
+                                            <button class="btn btn-success" <core:if test="${stocktak.quantity == 0}">disabled</core:if> value="${stocktak.product.id}" type="submit"
+                                                    name="product_id" id="button_add_${stocktak.product.id}">Купить
+                                            </button>
+                                        </td>
                                     </sf:form>
                                 </tr>
                             </core:if>
@@ -119,22 +124,24 @@
                 <div class="text-content"><h1>Компьютеры</h1></div>
                 <div>
                     <table class="table table-condensed table table-bordered">
-                        <core:forEach var="product" items="${products}">
+                        <core:forEach var="stocktak" items="${stocktaking}">
                             <core:set var="type_p" value="Компьютеры"/>
-                            <core:if test="${product.type == type_p}">
+                            <core:if test="${stocktak.product.type == type_p}">
                                 <tr>
                                     <td class="text-content"><a class="product"
-                                                                href="/product/?id=${product.id}">${product.name}</a>
-                                        <h5>${product.description}</h5></td>
-                                    <td class="text-content"><a class="link-content" href="#${product.type}"
-                                                                data-toggle="tab">${product.type}</a></td>
-                                    <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
+                                                                href="/product/?id=${stocktak.product.id}">${stocktak.product.name}</a>
+                                        <h5>${stocktak.product.description}</h5></td>
+                                    <td class="text-content"><a class="link-content" href="#${stocktak.product.type}"
+                                                                data-toggle="tab">${stocktak.product.type}</a></td>
+                                    <td class="text-content">${stocktak.product.price} рублей/шт</td>
+                                    <td class="text-content">г. ${stocktak.warehouse.city}, ул. ${stocktak.warehouse.street}</td>
+                                    <td class="text-content"><core:if test="${stocktak.quantity == 0}">  Нет в наличии</core:if>
+                                        <core:if test="${stocktak.quantity != 0}">  ${stocktak.quantity} шт</core:if></td>
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_form">
                                         <td>
-
-                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
-                                                       name="product_id">Купить
-                                            </sf:button>
+                                            <button class="btn btn-success" <core:if test="${stocktak.quantity == 0}">disabled</core:if> value="${stocktak.product.id}" type="submit"
+                                                    name="product_id" id="button_add_${stocktak.product.id}">Купить
+                                            </button>
                                         </td>
                                     </sf:form>
                                 </tr>
@@ -147,22 +154,24 @@
                 <div class="text-content"><h1>Планшеты</h1></div>
                 <div>
                     <table class="table table-condensed table table-bordered">
-                        <core:forEach var="product" items="${products}">
+                        <core:forEach var="stocktak" items="${stocktaking}">
                             <core:set var="type_p" value="Планшеты"/>
-                            <core:if test="${product.type == type_p}">
+                            <core:if test="${stocktak.product.type == type_p}">
                                 <tr>
                                     <td class="text-content"><a class="product"
-                                                                href="/product/?id=${product.id}">${product.name}</a>
-                                        <h5>${product.description}</h5></td>
-                                    <td class="text-content"><a class="link-content" href="#${product.type}"
-                                                                data-toggle="tab">${product.type}</a></td>
-                                    <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
+                                                                href="/product/?id=${stocktak.product.id}">${stocktak.product.name}</a>
+                                        <h5>${stocktak.product.description}</h5></td>
+                                    <td class="text-content"><a class="link-content" href="#${stocktak.product.type}"
+                                                                data-toggle="tab">${stocktak.product.type}</a></td>
+                                    <td class="text-content">${stocktak.product.price} рублей/шт</td>
+                                    <td class="text-content">г. ${stocktak.warehouse.city}, ул. ${stocktak.warehouse.street}</td>
+                                    <td class="text-content"><core:if test="${stocktak.quantity == 0}">  Нет в наличии</core:if>
+                                        <core:if test="${stocktak.quantity != 0}">  ${stocktak.quantity} шт</core:if></td>
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_form">
                                         <td>
-
-                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
-                                                       name="product_id">Купить
-                                            </sf:button>
+                                            <button class="btn btn-success" <core:if test="${stocktak.quantity == 0}">disabled</core:if> value="${stocktak.product.id}" type="submit"
+                                                    name="product_id" id="button_add_${stocktak.product.id}">Купить
+                                            </button>
                                         </td>
                                     </sf:form>
                                 </tr>
@@ -175,22 +184,24 @@
                 <div class="text-content"><h1>Теревзоры</h1></div>
                 <div>
                     <table class="table table-condensed table table-bordered">
-                        <core:forEach var="product" items="${products}">
+                        <core:forEach var="stocktak" items="${stocktaking}">
                             <core:set var="type_p" value="Теревзоры"/>
-                            <core:if test="${product.type == type_p}">
+                            <core:if test="${stocktak.product.type == type_p}">
                                 <tr>
                                     <td class="text-content"><a class="product"
-                                                                href="/product/?id=${product.id}">${product.name}</a>
-                                        <h5>${product.description}</h5></td>
-                                    <td class="text-content"><a class="link-content" href="#${product.type}"
-                                                                data-toggle="tab">${product.type}</a></td>
-                                    <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
+                                                                href="/product/?id=${stocktak.product.id}">${stocktak.product.name}</a>
+                                        <h5>${stocktak.product.description}</h5></td>
+                                    <td class="text-content"><a class="link-content" href="#${stocktak.product.type}"
+                                                                data-toggle="tab">${stocktak.product.type}</a></td>
+                                    <td class="text-content">${stocktak.product.price} рублей/шт</td>
+                                    <td class="text-content">г. ${stocktak.warehouse.city}, ул. ${stocktak.warehouse.street}</td>
+                                    <td class="text-content"><core:if test="${stocktak.quantity == 0}">  Нет в наличии</core:if>
+                                        <core:if test="${stocktak.quantity != 0}">  ${stocktak.quantity} шт</core:if></td>
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_form">
                                         <td>
-
-                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
-                                                       name="product_id">Купить
-                                            </sf:button>
+                                            <button class="btn btn-success" <core:if test="${stocktak.quantity == 0}">disabled</core:if> value="${stocktak.product.id}" type="submit"
+                                                    name="product_id" id="button_add_${stocktak.product.id}">Купить
+                                            </button>
                                         </td>
                                     </sf:form>
                                 </tr>
@@ -200,25 +211,27 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="Бытовая">
-                <div class="text-content"><h1>Быт. тнхника</h1></div>
+                <div class="text-content"><h1>Бытовая тнхника</h1></div>
                 <div>
                     <table class="table table-condensed table table-bordered">
-                        <core:forEach var="product" items="${products}">
+                        <core:forEach var="stocktak" items="${stocktaking}">
                             <core:set var="type_p" value="Бытовая тнхника"/>
-                            <core:if test="${product.type == type_p}">
+                            <core:if test="${stocktak.product.type == type_p}">
                                 <tr>
                                     <td class="text-content"><a class="product"
-                                                                href="/product/?id=${product.id}">${product.name}</a>
-                                        <h5>${product.description}</h5></td>
-                                    <td class="text-content"><a class="link-content" href="#${product.type}"
-                                                                data-toggle="tab">${product.type}</a></td>
-                                    <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
+                                                                href="/product/?id=${stocktak.product.id}">${stocktak.product.name}</a>
+                                        <h5>${stocktak.product.description}</h5></td>
+                                    <td class="text-content"><a class="link-content" href="#${stocktak.product.type}"
+                                                                data-toggle="tab">${stocktak.product.type}</a></td>
+                                    <td class="text-content">${stocktak.product.price} рублей/шт</td>
+                                    <td class="text-content">г. ${stocktak.warehouse.city}, ул. ${stocktak.warehouse.street}</td>
+                                    <td class="text-content"><core:if test="${stocktak.quantity == 0}">  Нет в наличии</core:if>
+                                        <core:if test="${stocktak.quantity != 0}">  ${stocktak.quantity} шт</core:if></td>
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_form">
                                         <td>
-
-                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
-                                                       name="product_id">Купить
-                                            </sf:button>
+                                            <button class="btn btn-success" <core:if test="${stocktak.quantity == 0}">disabled</core:if> value="${stocktak.product.id}" type="submit"
+                                                    name="product_id" id="button_add_${stocktak.product.id}">Купить
+                                            </button>
                                         </td>
                                     </sf:form>
                                 </tr>
@@ -231,22 +244,25 @@
                 <div class="text-content"><h1>Фотокамеры</h1></div>
                 <div>
                     <table class="table table-condensed table table-bordered">
-                        <core:forEach var="product" items="${products}">
+                        <core:forEach var="stocktak" items="${stocktaking}">
                             <core:set var="type_p" value="Фотокамеры"/>
-                            <core:if test="${product.type == type_p}">
+                            <core:if test="${stocktak.product.type == type_p}">
                                 <tr>
                                     <td class="text-content"><a class="product"
-                                                                href="/product/?id=${product.id}">${product.name}</a>
-                                        <h5>${product.description}</h5></td>
-                                    <td class="text-content"><a class="link-content" href="#${product.type}"
-                                                                data-toggle="tab">${product.type}</a></td>
-                                    <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
+                                                                href="/product/?id=${stocktak.product.id}">${stocktak.product.name}</a>
+                                        <h5>${stocktak.product.description}</h5></td>
+                                    <td class="text-content"><a class="link-content" href="#${stocktak.product.type}"
+                                                                data-toggle="tab">${stocktak.product.type}</a></td>
+                                    <td class="text-content">${stocktak.product.price} рублей/шт</td>
+                                    <td class="text-content">г. ${stocktak.warehouse.city}, ул. ${stocktak.warehouse.street}</td>
+                                    <td class="text-content"><core:if test="${stocktak.quantity == 0}">  Нет в наличии</core:if>
+                                        <core:if test="${stocktak.quantity != 0}">  ${stocktak.quantity} шт</core:if></td>
+                                    <td class="text-content">${stocktak.quantity} шт</td>
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_form">
                                         <td>
-
-                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
-                                                       name="product_id">Купить
-                                            </sf:button>
+                                            <button class="btn btn-success" <core:if test="${stocktak.quantity == 0}">disabled</core:if> value="${stocktak.product.id}" type="submit"
+                                                    name="product_id" id="button_add_${stocktak.product.id}">Купить
+                                            </button>
                                         </td>
                                     </sf:form>
                                 </tr>
@@ -259,22 +275,24 @@
                 <div class="text-content"><h1>Аудио</h1></div>
                 <div>
                     <table class="table table-condensed table table-bordered">
-                        <core:forEach var="product" items="${products}">
+                        <core:forEach var="stocktak" items="${stocktaking}">
                             <core:set var="type_p" value="Аудио"/>
-                            <core:if test="${product.type == type_p}">
+                            <core:if test="${stocktak.product.type == type_p}">
                                 <tr>
                                     <td class="text-content"><a class="product"
-                                                                href="/product/?id=${product.id}">${product.name}</a>
-                                        <h5>${product.description}</h5></td>
-                                    <td class="text-content"><a class="link-content" href="#${product.type}"
-                                                                data-toggle="tab">${product.type}</a></td>
-                                    <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
+                                                                href="/product/?id=${stocktak.product.id}">${stocktak.product.name}</a>
+                                        <h5>${stocktak.product.description}</h5></td>
+                                    <td class="text-content"><a class="link-content" href="#${stocktak.product.type}"
+                                                                data-toggle="tab">${stocktak.product.type}</a></td>
+                                    <td class="text-content">${stocktak.product.price} рублей/шт</td>
+                                    <td class="text-content">г. ${stocktak.warehouse.city}, ул. ${stocktak.warehouse.street}</td>
+                                    <td class="text-content"><core:if test="${stocktak.quantity == 0}">  Нет в наличии</core:if>
+                                        <core:if test="${stocktak.quantity != 0}">  ${stocktak.quantity} шт</core:if></td>
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_form">
                                         <td>
-
-                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
-                                                       name="product_id">Купить
-                                            </sf:button>
+                                            <button class="btn btn-success" <core:if test="${stocktak.quantity == 0}">disabled</core:if> value="${stocktak.product.id}" type="submit"
+                                                    name="product_id" id="button_add_${stocktak.product.id}">Купить
+                                            </button>
                                         </td>
                                     </sf:form>
                                 </tr>
@@ -287,22 +305,24 @@
                 <div class="text-content"><h1>Комплектующие для ПК</h1></div>
                 <div>
                     <table class="table table-condensed table table-bordered">
-                        <core:forEach var="product" items="${products}">
+                        <core:forEach var="stocktak" items="${stocktaking}">
                             <core:set var="type_p" value="Комплектующие для ПК"/>
-                            <core:if test="${product.type == type_p}">
+                            <core:if test="${stocktak.product.type == type_p}">
                                 <tr>
                                     <td class="text-content"><a class="product"
-                                                                href="/product/?id=${product.id}">${product.name}</a>
-                                        <h5>${product.description}</h5></td>
-                                    <td class="text-content"><a class="link-content" href="#${product.type}"
-                                                                data-toggle="tab">${product.type}</a></td>
-                                    <td class="text-content">${product.price} рублей</td>
-                                    <sf:form method="post" action="/product/buy" modelAttribute="product_">
+                                                                href="/product/?id=${stocktak.product.id}">${stocktak.product.name}</a>
+                                        <h5>${stocktak.product.description}</h5></td>
+                                    <td class="text-content"><a class="link-content" href="#${stocktak.product.type}"
+                                                                data-toggle="tab">${stocktak.product.type}</a></td>
+                                    <td class="text-content">${stocktak.product.price} рублей/шт</td>
+                                    <td class="text-content">г. ${stocktak.warehouse.city}, ул. ${stocktak.warehouse.street}</td>
+                                    <td class="text-content"><core:if test="${stocktak.quantity == 0}">  Нет в наличии</core:if>
+                                        <core:if test="${stocktak.quantity != 0}">  ${stocktak.quantity} шт</core:if></td>
+                                    <sf:form method="post" action="/product/buy" modelAttribute="product_form">
                                         <td>
-
-                                            <sf:button class="btn btn-success" value="${product.id}" type="submit"
-                                                       name="product_id">Купить
-                                            </sf:button>
+                                            <button class="btn btn-success" <core:if test="${stocktak.quantity == 0}">disabled</core:if> value="${stocktak.product.id}" type="submit"
+                                                    name="product_id" id="button_add_${stocktak.product.id}">Купить
+                                            </button>
                                         </td>
                                     </sf:form>
                                 </tr>

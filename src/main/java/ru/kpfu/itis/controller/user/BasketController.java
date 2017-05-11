@@ -3,6 +3,7 @@ package ru.kpfu.itis.controller.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.form.OrderModifyForm;
@@ -32,6 +33,7 @@ public class BasketController {
         return "basket";
     }
 
+    @Transactional
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String basket(@ModelAttribute("order_form") OrderForm form) {
         Order order = orderService.getById(form.getOrder_id());
@@ -42,11 +44,13 @@ public class BasketController {
         return "redirect:/orders/";
     }
 
+    @Transactional
     @RequestMapping(value = "/minus", method = RequestMethod.GET)
     public @ResponseBody int minusCount(@RequestParam int id, @RequestParam int count) {
         return orderService.getResponseAboutMinusCount(id, count);
     }
 
+    @Transactional
     @RequestMapping(value = "/plus", method = RequestMethod.GET)
     public @ResponseBody int plusCount(@RequestParam int id, @RequestParam int count) {
         return orderService.getResponseAboutPlusCount(id, count);

@@ -7,6 +7,7 @@ import ru.kpfu.itis.form.OrderModifyForm;
 import ru.kpfu.itis.message.MailMail;
 import ru.kpfu.itis.model.Order;
 import ru.kpfu.itis.model.ProductInOrder;
+import ru.kpfu.itis.model.Stocktaking;
 import ru.kpfu.itis.model.User;
 import ru.kpfu.itis.model.enums.OrderType;
 import ru.kpfu.itis.repository.OrderRepository;
@@ -17,6 +18,7 @@ import ru.kpfu.itis.util.transform.OrderModifyFormTransform;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -65,12 +67,18 @@ public class OrderServiceImpl implements OrderService {
             for (ProductInOrder productInOrder1 : productInOrders) {
                 if (productInOrder1.getProduct().getId() == productInOrder.getProduct().getId()) {
                     productInOrder1.setQuantity(productInOrder1.getQuantity() + 1);
+                    Stocktaking stocktaking = stocktakingService.getByProduct(productInOrder.getProduct());
+                    stocktaking.setQuantity(stocktaking.getQuantity()-1);
+                    stocktakingService.save(stocktaking);
                     flag = true;
                 }
             }
             if (!flag) {
                 productInOrder.setQuantity(1);
                 productInOrders.add(productInOrder);
+                Stocktaking stocktaking = stocktakingService.getByProduct(productInOrder.getProduct());
+                stocktaking.setQuantity(stocktaking.getQuantity()-1);
+                stocktakingService.save(stocktaking);
             }
             order.setProductInOrders(productInOrders);
             orderRepository.save(order);
@@ -89,6 +97,9 @@ public class OrderServiceImpl implements OrderService {
             orderRepository.save(order);
             productInOrder.setOrder(order);
             productInOrderRepository.save(productInOrder);
+            Stocktaking stocktaking = stocktakingService.getByProduct(productInOrder.getProduct());
+            stocktaking.setQuantity(stocktaking.getQuantity()-1);
+            stocktakingService.save(stocktaking);
         }
 
 
@@ -125,45 +136,46 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public int getResponseAboutMinusCount(long id, int count) {
-        int availableCount = getCountById(id);
+        int availableCount = stocktakingService.getByProductId(id).getQuantity();
         int neededCount = count - 1;
-
-        int response = setResponse(id, neededCount, availableCount);
-
-        System.out.println(id + " - " + response);
-
-        return response;
+        return setResponse(id, neededCount, availableCount, "minus", count);
     }
 
     public int getResponseAboutPlusCount(long id, int count) {
-        int availableCount = getCountById(id);
+        int availableCount = stocktakingService.getByProductId(id).getQuantity();
         int neededCount = count + 1;
-
-        int response = setResponse(id, neededCount, availableCount);
-
-        System.out.println(id + " - " + response);
-
-        return response;
+        return setResponse(id, neededCount, availableCount, "plus", count);
     }
 
-
-    private int setResponse(long id, int neededCount, int availableCount) {
-        System.out.println(neededCount + " --- " + availableCount);
-        if (neededCount > availableCount)
+    private int setResponse(long id, int neededCount, int availableCount, String name_action, int count) {
+        if (neededCount > availableCount+count)
             return -1;
-        else if (neededCount <= 0)
+        else if (neededCount == 0)
             return -2;
-        else if (neededCount <= availableCount) {
+        else if (neededCount <= availableCount + neededCount) {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            save(user, productInOrderRepository.findOneByProductId(id));
-            return neededCount;
+            Stocktaking stocktaking = stocktakingService.getByProductId(id);
+            Order order = getByUserAndTypeOrder(user, OrderType.DIALED);
+            ProductInOrder productInOrder = productInOrderRepository.findOneByOrderIdAndProductId(order.getId(), id);
+            if (Objects.equals(name_action, "plus")) {
+                productInOrder.setQuantity(productInOrder.getQuantity()+1);
+                productInOrderRepository.save(productInOrder);
+                stocktaking.setQuantity(stocktaking.getQuantity()-1);
+                stocktakingService.save(stocktaking);
+                System.out.println("Кнопка минус нажата запись: stocktaking_id - " + stocktaking.getId() + ", order_id - " + order.getId() + ", productInOrder_id - " + productInOrder.getId());
+                return neededCount;
+            }
+            if (Objects.equals(name_action, "minus")) {
+                productInOrder.setQuantity(productInOrder.getQuantity()-1);
+                productInOrderRepository.save(productInOrder);
+                stocktaking.setQuantity(stocktaking.getQuantity()+1);
+                stocktakingService.save(stocktaking);
+                System.out.println("Кнопка минус нажата запись: stocktaking_id - " + stocktaking.getId() + ", order_id - " + order.getId() + ", productInOrder_id - " + productInOrder.getId());
+                return neededCount;
+            }
         }
+        System.out.println("Пользователь сломал AJAX программа не успивает за кликами");
         return 0;
     }
-
-    public int getCountById(long id) {
-        return stocktakingService.getAllQuantityOnWarehouse(stocktakingService.getAllByProductId(id));
-    }
-
 
 }

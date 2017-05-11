@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.exception.UserIsNotActivate;
+import ru.kpfu.itis.form.collateralForms.OrderForm;
 import ru.kpfu.itis.form.collateralForms.ProductInOrderForm;
 import ru.kpfu.itis.model.Product;
 import ru.kpfu.itis.model.ProductInOrder;
@@ -23,35 +24,31 @@ public class ProductUserController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private ProductInOrderService productInOrderService;
+    private StocktakingService stocktakingService;
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private TokenRepository tokenRepository;
 
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String catalog(@RequestParam(value = "name", required = false) String productname, Model model) {
 
         if (productname != null) {
-            model.addAttribute("name", productname);
-            model.addAttribute("products", productService.getAllByName(productname));
-            model.addAttribute("product_", new ProductInOrderForm());
+            model.addAttribute("product_form", new OrderForm());
+            model.addAttribute("stocktaking", stocktakingService.getAllByProductName(productname));
             return "catalog";
         }
-
-        model.addAttribute("product_", new ProductInOrderForm());
-        model.addAttribute("products", productService.getAll());
+        model.addAttribute("product_form", new OrderForm());
+        model.addAttribute("stocktaking", stocktakingService.getAll());
         model.addAttribute("error", "");
         return "catalog";
     }
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
-    public String catalog(@ModelAttribute("product_id") ProductInOrderForm form, Model model) {
+    public String catalog(@ModelAttribute("product_form") ProductInOrderForm form, Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!user.isIs_confirm()){
             model.addAttribute("error", "Пользователь не активен");
-            model.addAttribute("products", productService.getAll());
+            model.addAttribute("stocktaking", stocktakingService.getAll());
             return "catalog";
         }
         Product product = productService.getById(form.getProduct_id());

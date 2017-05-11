@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kpfu.itis.form.AddQuantityForm;
 import ru.kpfu.itis.form.AddStocktakingForm;
+import ru.kpfu.itis.model.Product;
 import ru.kpfu.itis.model.Stocktaking;
 import ru.kpfu.itis.repository.StocktakingRepository;
 import ru.kpfu.itis.service.ProductService;
@@ -33,6 +34,16 @@ public class StocktakingServiceImpl implements StocktakingService {
     }
 
     @Override
+    public Stocktaking getByProduct(Product product) {
+        return stocktakingRepository.findByProduct(product);
+    }
+
+    @Override
+    public Stocktaking getByProductId(long id) {
+        return stocktakingRepository.findByProductId(id);
+    }
+
+    @Override
     public List<Stocktaking> getAllByWarehouseId(long id) {
         return stocktakingRepository.findAllByWarehouseId(id);
     }
@@ -40,6 +51,11 @@ public class StocktakingServiceImpl implements StocktakingService {
     @Override
     public List<Stocktaking> getAllByProductId(long id) {
         return stocktakingRepository.findAllByProductId(id);
+    }
+
+    @Override
+    public List<Stocktaking> getAllByProductName(String name) {
+        return stocktakingRepository.findAllByProductName(name);
     }
 
     @Override
@@ -63,6 +79,11 @@ public class StocktakingServiceImpl implements StocktakingService {
     @Override
     public void save(AddStocktakingForm form) {
         Stocktaking stocktaking = AddStocktakingFormTransform.transform(form);
+        stocktakingRepository.save(stocktaking);
+    }
+
+    @Override
+    public void save(Stocktaking stocktaking) {
         stocktakingRepository.save(stocktaking);
     }
 

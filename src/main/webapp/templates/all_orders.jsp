@@ -13,6 +13,16 @@
     </style>
 </head>
 <body>
+<nav class="navbar navbar-inverse" role="navigation">
+    <ul class="nav navbar-nav">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">Shop</a>
+        </div>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="logout">Выход</a></li>
+    </ul>
+</nav>
 <h1>Заказы пользователя</h1>
 <table class="table table-bordered">
     <thead>
@@ -34,10 +44,11 @@
             <th></th>
         </security:authorize>
         <th>Тип</th>
+        <security:authorize access="hasRole('ROLE_ADMIN')">
+            <th></th>
+        </security:authorize>
+        <th></th>
 
-        <th><security:authorize access="hasRole('ROLE_ADMIN')"><a class="btn btn-success"
-                                                                  href="/admin/main">Админка</a></security:authorize><security:authorize
-                access="hasRole('ROLE_USER')"><a class="btn btn-success" href="/">Главная</a></security:authorize></th>
     </tr>
     </thead>
 
@@ -49,7 +60,8 @@
 
             <td><core:forEach var="productInOrder" items="${productInOrders}">
                 <core:if test="${order.id == productInOrder.order.id}">
-                    <h6><b>Название: </b>${productInOrder.product.name} <b>Цена: </b>${productInOrder.product.price}
+                    <h6><b>Название: </b>${productInOrder.product.name}
+                        <b>Цена: </b>${productInOrder.product.price*productInOrder.quantity}
                         рублей <b>Тип: </b>${productInOrder.product.type}
                         <b>Количество: </b>${productInOrder.quantity}</h6>
                 </core:if>

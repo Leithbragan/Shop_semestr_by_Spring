@@ -23,5 +23,4 @@ public interface OrderService {
     void delete(List<Order> orders);
     int getResponseAboutMinusCount(long id, int count);
     int getResponseAboutPlusCount(long id, int count);
-    int getCountById(long id);
 }

@@ -12,6 +12,9 @@
 <body>
     <nav class="navbar navbar-inverse" role="navigation">
         <ul class="nav navbar-nav">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">Shop</a>
+            </div>
             <li><a href="/admin/product/add">Добавление продукта</a></li>
             <li><a href="/admin/warehouse/add">Добавление склада</a></li>
             <li><a href="/admin/stocktaking/add">Добавление учетной записи</a></li>

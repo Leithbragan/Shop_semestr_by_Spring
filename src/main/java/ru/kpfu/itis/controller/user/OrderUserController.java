@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.kpfu.itis.form.collateralForms.OrderForm;
 import ru.kpfu.itis.model.Order;
 import ru.kpfu.itis.model.ProductInOrder;
 import ru.kpfu.itis.model.User;
@@ -28,6 +29,7 @@ public class OrderUserController {
     public String all_orders(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Order> orders = orderService.getByUser(user);
+        model.addAttribute("order_form", new OrderForm());
         model.addAttribute("orders", orders);
         model.addAttribute("productInOrders", productInOrderService.getAllByOrderIn(orders));
         return "all_orders";
@@ -35,7 +37,8 @@ public class OrderUserController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam(value="id") Long id, Model model) {
-        for (ProductInOrder product: productInOrderService.getAll()) {
+        Order order = orderService.getById(id);
+        for (ProductInOrder product: productInOrderService.getAllByOrder(order)) {
             productInOrderService.delete(product.getId());
         }
         orderService.delete(id);
